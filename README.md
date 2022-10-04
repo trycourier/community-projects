@@ -21,6 +21,11 @@
   * Gifs are always really easy to follow
 * Ask a friend to follow along and see where they get stuck - you might need to add more context there
 
+### Examples
+- [Sending Secret Messages with the Courier API](https://github.com/shreythecray/secret-messages)
+- [Build a Serverless Lie Detector that uses AI for Facial Recognition](https://github.com/shreythecray/lie-detector)
+- [Infiltrate a Discord Server with Automated Encrypted Messages with Node.js](https://github.com/shreythecray/infiltration)
+
 ## Next Steps
 All PRs will be reviewed and may be edited by the Courier team before being merged.
 
