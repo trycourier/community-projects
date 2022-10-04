@@ -10,17 +10,17 @@
 6. Make a pull request to the original repo with your updates.
 
 ### Must Haves
-* Breakdown your project build into 3-5 parts
-* Breakdown your code into small, consumable snippets and explain as much as you can
+* Breakdown your project build into 3-5 parts.
+* Breakdown your code into small, consumable snippets and explain as much as you can.
 * Protect your secret keys and info!
-* Screenshots of your project at different steps
+* Include screenshots of your project at different steps.
 
 ### Recommendations
-* Keep your audience in mind throughout
-* Maintain a storyline
-* Use visuals to help the reader follow along (but not too many)
-  * Gifs are always really easy to follow
-* Ask a friend to follow along and see where they get stuck - you might need to add more context there
+* Keep your audience in mind throughout.
+* Maintain a storyline.
+* Use visuals to help the reader follow along (but not too many).
+  * Gifs are always really easy to follow.
+* Ask a friend to follow along and see where they get stuck - you might need to add more context there.
 
 ### Examples
 - [Sending Secret Messages with the Courier API](https://github.com/shreythecray/secret-messages)
