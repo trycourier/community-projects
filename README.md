@@ -1,6 +1,6 @@
 # Build a Tutorial
 
-## Create a Tutorial
+## Start Here ⬇️
 
 1. Fork this repo.
 2. Duplicate the [project_name] template folder.
