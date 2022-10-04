@@ -1,4 +1,4 @@
-# Learn from projects built by Courier Community Developers
+# Build a Tutorial
 
 ## Create a Tutorial
 
