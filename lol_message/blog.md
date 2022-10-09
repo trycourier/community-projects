@@ -26,72 +26,15 @@ Below diagram shows the architecture which we will be building in this article.
 
 The project divided into 4 parts:
 
-1. Courier Setup
-2. Project Setup
+1. Project Setup
+2. Courier Setup
 3. Backend
 4. Frontend 
 
 
-### Part 1: Courier Setup
+### Part 1: Project Setup
 
-In this first part, we will be setting up the Courier account and  integrating  with Gmail API to send email notifications.
-
-- Log in to your Courier account and create a workspace.
-- For onboarding, select the email channel and let Courier build with Node.js. Start with the Gmail API since it only takes seconds to set up. All we need to do to authorize is log in via Gmail. Now the API is ready to send messages.
-- Copy the starter code, a basic API call using cURL, and paste it in a new terminal. It already has saved your API key and knows which email address you want to send to, and has a message already built in.
-
-Once you can see the dancing pigeon, you are ready to use Courier.
-
-
-After setting up the Courier account, we will be creating a new notification template in the Courier dashboard.
-
-- Go to the [Courier dashboard](https://app.courier.com/) and click on the `Create Notification` button.
-
-- Select the `Email` channel and click on the `publish changes` button.
-
-- After publishing the changes, click on the email icon from the left sidebar to create a new email template.
-
-Your email template should look like this without logo:
-
-![Template](https://i.imgur.com/RJBR4aQ.png)
-
-Now we will be adding content to the email template.You can use the following format:
-
-![Template 1](https://i.imgur.com/DbhGtt7.png)
-
-![Template 2](https://i.imgur.com/TlZaIbx.png)
-
-
-Small explanation of the above template:
-
-- `{username}` is the username of the user who received the message.
-
-- `{question}` is the question that the user asked.
-
-- `{subject}` is the subject of the message randomly generated.
-
--  `{url}` is the link to the message page.
-
-Lastly, we need to copy the `template ID` and `Authorization` token from the Courier dashboard.
-
-For that click on the `Send` tab, and you will see the `template ID` and `Authorization` token.
-
-![Send Tab](https://i.imgur.com/HCLeWvn.png)
-
-Copy the template ID and Authorization token and paste it in `.env` file.
-
-Use the following format:
-
-```
-COURIER_API_KEY=YOUR_AUTH_TOKEN
-COURIER_TEMPLATE_ID=YOUR_TEMPLATE_ID
-```
-
-Ok now we are done with the Courier setup. Let's move on to the next part.
-
-### Part 2: Project Setup
-
-In this part, we will be setting up the project and creating the database. We will be using Supabase for the database and authentication and Next.js for web framework.
+In this first part, we will be setting up the project and creating the database. We will be using Supabase for the database and authentication and Next.js for web framework.
 
 - Create a new next.js project using the following command:
 
@@ -165,6 +108,64 @@ yarn prisma migrate dev --name init
 
 Ah! We are done with the project setup. Let's move on to the next part.
 
+
+
+### Part 2: Courier Setup
+
+In this part, we will be setting up the Courier account and  integrating  with Gmail API to send email notifications.
+
+- Log in to your Courier account and create a workspace.
+- For onboarding, select the email channel and let Courier build with Node.js. Start with the Gmail API since it only takes seconds to set up. All we need to do to authorize is log in via Gmail. Now the API is ready to send messages.
+- Copy the starter code, a basic API call using cURL, and paste it in a new terminal. It already has saved your API key and knows which email address you want to send to, and has a message already built in.
+
+Once you can see the dancing pigeon, you are ready to use Courier.
+
+
+After setting up the Courier account, we will be creating a new notification template in the Courier dashboard.
+
+- Go to the [Courier dashboard](https://app.courier.com/) and click on the `Create Notification` button.
+
+- Select the `Email` channel and click on the `publish changes` button.
+
+- After publishing the changes, click on the email icon from the left sidebar to create a new email template.
+
+Your email template should look like this without logo:
+
+![Template](https://i.imgur.com/RJBR4aQ.png)
+
+Now we will be adding content to the email template.You can use the following format:
+
+![Template 1](https://i.imgur.com/DbhGtt7.png)
+
+![Template 2](https://i.imgur.com/TlZaIbx.png)
+
+
+Small explanation of the above template:
+
+- `{username}` is the username of the user who received the message.
+
+- `{question}` is the question that the user asked.
+
+- `{subject}` is the subject of the message randomly generated.
+
+-  `{url}` is the link to the message page.
+
+Lastly, we need to copy the `template ID` and `Authorization` token from the Courier dashboard.
+
+For that click on the `Send` tab, and you will see the `template ID` and `Authorization` token.
+
+![Send Tab](https://i.imgur.com/HCLeWvn.png)
+
+Copy the template ID and Authorization token and paste it in `.env` file.
+
+Use the following format:
+
+```
+COURIER_API_KEY=YOUR_AUTH_TOKEN
+COURIER_TEMPLATE_ID=YOUR_TEMPLATE_ID
+```
+
+Ok now we are done with the Courier setup. Let's move on to the next part.
 
 ### Part 3: Backend
 
