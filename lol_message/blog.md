@@ -3,7 +3,19 @@
 
 ## Background
 
-During the [Courier Hack](https://courier-hacks.devpost.com/), I wanted to build a project that was fun and easy to use. So I decided to build an open source `NGL.link` alternative with email notification and a dashboard to view all the received messages. 
+During the [Courier Hack](https://courier-hacks.devpost.com/), I wanted to build a project that was fun and easy to use. So I decided to build an open source `NGL.link` alternative.
+
+A quick introduction about `NGL.link`. It allows users to create an inbox for anonymous questions. Every user receives a link to their inbox, which can be shared across social media platforms, but lately, people have been using it for Instagram specifically. 
+
+Why my project is open source? I wanted to build something that people can use for free and also contribute to it.
+
+Similar to `NGL.link`, Lol Message allows users to create an inbox for anonymous questions. Every user receives a link to their inbox, which can be shared across social media platforms. Also, users can view all the received messages in a dashboard with email notifications.
+
+Lol Message inform users when they receive a message via email. I choose to use email because it's the most common way to inform users about something important.
+
+Here's a quick demo of the project:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/dPTf3qporVE/0.jpg)](https://www.youtube.com/watch?v=dPTf3qporVE)
 
 I decided to use the following tools and technologies for this project:
 
@@ -13,16 +25,22 @@ I decided to use the following tools and technologies for this project:
 - Authentication & Database: [Supabase](https://supabase.io/)
 - UI: [Mantine](https://mantine.dev/)
 
+
+I assume that you have a basic understanding of the tools and technologies I mentioned above. If you don't, I recommend you to check out their documentation before you continue.
+
 ## Instructions
 
-We will be building core features of the project in this tutorial. You can find the source code of the full project [here](https://github.com/n4ze3m/lol), and you can find the live demo [here](https://lol-message.vercel.app/).
+We will be building the core features of the project in this article. You can find the source code of the full project [here](https://github.com/n4ze3m/lol), and you can find the live demo [here](https://lol-message.vercel.app/).
 
 So let's get started!
 
-Below diagram shows the architecture which we will be building in this article.
+Below diagram shows the architecture which we will be building in this article. 
+
 
 ![Architecture Diagram](https://i.imgur.com/WtTIASB.png)
 
+
+When a person submit a message, it will send a request to the tRPC server. The tRPC server will then send a request to the Courier API to send a email notification to the recipient and save the message in the database. The recipient will receive an email notification and can view the message in the dashboard.
 
 The project divided into 4 parts:
 
@@ -42,7 +60,7 @@ In this first part, we will be setting up the project and creating the database.
 yarn create next-app --typescript lol-mini
 ```
 
-*Note* I used yarn, but you can use npm as well or any other package manager.
+- *Note* I used yarn, but you can use npm as well or any other package manager.
 
 
 After creating the Next.js project, we will be setting up the Supabase database.
@@ -62,7 +80,75 @@ Next, we need to create a new prisma schema file. You can use the following comm
 yarn prisma init
 ```
 
-After creating the prisma schema file, we need to add the following code to the `schema.prisma` file:
+After creating the prisma schema file, we need to create two models. The first model will be for the `user` and the second model will be for the `message`.
+
+
+
+Open the `schema.prisma` file and add the following code for the `user` model
+
+
+```prisma
+model user {
+  id           String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  username     String
+  email        String
+  email_notify Boolean   @default(true)
+  question     String    @default("Send me anonymous messages lol!")
+  pause        Boolean   @default(false)
+}
+```
+
+
+
+The `user` model has the following fields:
+- `id`: The unique id of the user (primary key) randomly generated using `uuid_generate_v4()`
+- `username`: The username of the user
+- `email`: The email of the user
+- `email_notify`: A boolean field to enable or disable email notifications
+- `question`: The question that will be displayed on the user's inbox
+- `pause`: A boolean field to pause the inbox
+
+Next, we need to add the `message` model to the `schema.prisma` file.
+
+```prisma
+model message {
+  id         String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  message    String
+  opened     Boolean  @default(false)
+  user_id    String
+  question   String   @default("Send me anonymous messages lol!")
+  user       user  @relation(fields: [user_id], references: [id])
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+```
+
+The `message` model has the following fields:
+- `id`: The unique id of the message (primary key) randomly generated using `uuid_generate_v4()`
+- `message`: The message that the user sent
+- `opened`: A boolean field to check if the message is opened or not
+- `user_id`: The id of the user who received the message
+- `question`: The question that will be displayed on the user's inbox
+- `user`: The relation between the `message` and `user` models
+- `created_at`: The date and time when the message was created
+
+Since we have a relation between the `message` and `user` models, we need to update the `user` model to include the `messages` field.
+
+```diff
+model user {
+  id           String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  username     String
+  email        String
+  email_notify Boolean   @default(true)
+  question     String    @default("Send me anonymous messages lol!")
+  pause        Boolean   @default(false)
++ message     message[]
+}
+```
+
+The `message` field is an array of `message` objects that belong to the user. 
+
+
+Final code of the `schema.prisma` file should look like this:
 
 ```prisma
 generator client {
@@ -95,16 +181,24 @@ model message {
 }
 ```
 
-To to successfully migrate the database, we need to add the `DATABASE_URL` in the `.env` file.  You can check out the following documentation about how to intergate the `prisma`  with Supabase [here](https://supabase.com/docs/guides/integrations/prisma).
+Next, we need to migrate the database. 
 
-After adding the `DATABASE_URL` in the `.env` file, we need to migrate the database using the following command:
+Make sure you have working database credentials in the `.env` file. You can find the database credentials in the Supabase dashboard. For more information, check out the [documentation](https://supabase.com/docs/guides/integrations/prisma).
+
+Now, we can migrate the database using the following command:
+
 
 ```bash
 yarn prisma migrate dev --name init
 ```
 
+Your Prisma schema is now in sync with your database schema and you can start querying your database with Prisma Client.
 
-*Note* You need to add a user in order to use the application because we are not going to cover the user authentication in this article. You can use prisma studio or supabase dashboard to add a user.
+
+- *Note* You need to add a user in order to use the application because we are not going to cover the user authentication in this article. You can use prisma studio or supabase dashboard to add a user. 
+
+- *Note* To use supabase auth with next.js, you can check out supabase auth helper details [here](https://github.com/supabase/auth-helpers)
+
 
 Ah! We are done with the project setup. Let's move on to the next part.
 
@@ -207,9 +301,17 @@ export const database =
 if (process.env.NODE_ENV !== "production") global.prisma = database;
 ```
 
-The above code is used to connect to the database using `prisma` client.
+The above code is used to connect to the database using `prisma` client. P
 
-Next open your trpc router file and add the following code:
+
+- *Note*:  When we migrate the database for the first time, prisma will install the `@prisma/client` package. If you are getting an error, please install the `@prisma/client` package using the following command:
+
+```bash
+yarn add @prisma/client
+```
+
+Next open your trpc router file and it should look like this:
+
 
 ```ts
 import * as trpc from "@trpc/server";
@@ -220,7 +322,26 @@ import { z } from "zod";
 
 export const appRouter = trpc
   .router()
-  .query("findUserByUsername", {
+// export type definition of API
+export type AppRouter = typeof appRouter;
+
+// export API handler
+export default trpcNext.createNextApiHandler({
+  router: appRouter,
+  createContext: () => null,
+});
+```
+
+We need to add a query and mutation to the router file. So let's do that.
+
+#### findUserByUsername
+
+This query is used to find the user by username. It takes the username as an input and returns the user object.
+  
+In your router file, add the following code:
+
+```ts
+.query("findUserByUsername", {
     input: z
       .object({
         username: z.string().nullish(),
@@ -252,7 +373,19 @@ export const appRouter = trpc
       return user;
     },
   })
-  .mutation("answerQuestion", {
+```
+
+
+#### answerQuestion
+
+This mutation is used to answer the question. It takes the `userId`, `question`, and `answer` as an input and returns the message object.
+
+If the user has enabled the email notification, then it will send the email notification using the `Courier` client.
+
+So let's add the following code to the router file:
+
+```ts
+.mutation("answerQuestion", {
     input: z
       .object({
         userId: z.string().nullish(),
@@ -316,7 +449,115 @@ export const appRouter = trpc
       };
     },
   });
+```
 
+
+After implementing both the queries and mutations, your router file should look like this:
+
+```ts
+import * as trpc from "@trpc/server";
+import * as trpcNext from "@trpc/server/adapters/next";
+import { CourierClient } from "@trycourier/courier";
+import { database } from "utils/database";
+import { z } from "zod";
+
+export const appRouter = trpc
+  .router()
+  .query("findUserByUsername", {
+    input: z
+      .object({
+        username: z.string().nullish(),
+      })
+      .nullish(),
+    resolve: async ({ input }) => {
+      if (!input?.username) {
+        return null;
+      }
+      const user = await database.profile.findFirst({
+        select: {
+          id: true,
+          username: true,
+          question: true,
+          pause: true,
+        },
+        where: {
+          username: input.username,
+        },
+      });
+
+      if (!user) {
+        throw new trpc.TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
+      }
+
+      return user;
+    },
+  }).mutation("answerQuestion", {
+    input: z
+      .object({
+        userId: z.string().nullish(),
+        question: z.string().nullish(),
+        answer: z.string().nullish(),
+      })
+      .nullish(),
+    resolve: async ({ input }) => {
+      if (!input?.userId || !input?.question || !input?.answer) {
+        return null;
+      }
+
+      const user = await database.profile.findFirst({
+        where: {
+          id: input.userId,
+        },
+      });
+
+      if (!user) {
+        throw new trpc.TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
+      }
+
+      const answer = await database.message.create({
+        data: {
+          message: input.answer,
+          user_id: input.userId,
+          question: input.question,
+        },
+      });
+
+      if (user.email_notify) {
+        const courier = CourierClient({
+          authorizationToken: process.env.COURIER_API_KEY,
+        });
+
+        const url = process.env.NEXT_PUBLIC_HOSTNAME
+          ? `https://${process.env.NEXT_PUBLIC_HOSTNAME}/me/a`
+          : "http://localhost:3000/me/a";
+
+        await courier.send({
+          message: {
+            to: {
+              email: user.email,
+            },
+            template: process.env.COURIER_TEMPLATE_ID as string,
+            data: {
+              subject: "You have a new message",
+              username: user.username,
+              url: `${url}/${answer.id}`,
+              question: input.question,
+            },
+          },
+        });
+      }
+
+      return {
+        message: "Message sent successfully",
+      };
+    },
+  });
 // export type definition of API
 export type AppRouter = typeof appRouter;
 
@@ -327,22 +568,11 @@ export default trpcNext.createNextApiHandler({
 });
 ```
 
-We have added one query and one mutation in the above code. Let's understand what each of them does.
-
-#### findUserByUsername
-
-This query is used to find the user by username. It takes the username as an input and returns the user object.
-
-#### answerQuestion
-
-This mutation is used to answer the question. It takes the `userId`, `question`, and `answer` as an input and returns the message object.
-
-If the user has enabled the email notification, then it will send the email notification using the `Courier` client.
-
+And that's it! We have successfully implemented the API for our application. Now let's move on to the Frontend.
 
 ### Part 4: Frontend
 
-Finally, we are done with the backend API. Now it's time to build the frontend.
+Finally, we are done with the backend API. Now it's time to build the frontend. 
 
 
 So for the frontend, we are going to use [Mantine](https://mantine.dev/).
@@ -550,9 +780,8 @@ So that's it for this tutorial. I hope you enjoyed it.
 ## About the Author
 
 
-<!--  create a about link -->
 
-My name is [Nazeem](https://n4ze3m.site) and I am a software engineer who loves to build things.
+My name is [Nazeem](https://n4ze3m.site) and I am a Software Engineer. I am passionate about building web apps and I love to share my knowledge with others. You can find me on [Twitter](https://twitter.com/n4ze3m) and [GitHub](https://github.com/n4ze3m).
 
 ## Quick Links
 
@@ -569,3 +798,7 @@ My name is [Nazeem](https://n4ze3m.site) and I am a software engineer who loves 
 - Supabase [Documentation](https://supabase.io/docs)
 
 - Supabase Auth [Documentation](https://github.com/supabase/auth-helpers)
+
+- Prisma Studio [Documentation](https://www.prisma.io/docs/concepts/components/prisma-studio)
+
+- Lol Message Devpost [Link](https://devpost.com/software/lol-message)
