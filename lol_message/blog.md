@@ -3,15 +3,13 @@
 
 ## Background
 
-During the [Courier Hack](https://courier-hacks.devpost.com/), I wanted to build a project that was fun and easy to use. So I decided to build an open source `NGL.link` alternative.
+For [Courier Hack](https://courier-hacks.devpost.com/)s, I decided to build an open source `NGL.link` alternative, which was fun to build, easy to use, and free for everyone.
 
-A quick introduction about `NGL.link`. It allows users to create an inbox for anonymous questions. Every user receives a link to their inbox, which can be shared across social media platforms, but lately, people have been using it for Instagram specifically. 
+[Contribute here >](https://github.com/n4ze3m/lol/)
 
-Why my project is open source? I wanted to build something that people can use for free and also contribute to it.
+`NGL.link` allows users to create an inbox for anonymous questions. Every user receives a link to their inbox, which can be shared across social media platforms, but lately, people have been using it for Instagram specifically.
 
-Similar to `NGL.link`, Lol Message allows users to create an inbox for anonymous questions. Every user receives a link to their inbox, which can be shared across social media platforms. Also, users can view all the received messages in a dashboard with email notifications.
-
-Lol Message inform users when they receive a message via email. I choose to use email because it's the most common way to inform users about something important.
+Similar to `NGL.link`, Lol Message allows users to create an inbox for anonymous questions. Every user receives a link to the inbox, which can be shared across social media platforms. Users can also view all the received messages in a dashboard with email notifications. Lol Message reminds users about new messages via email.
 
 Here's a quick demo of the project:
 
@@ -19,14 +17,13 @@ Here's a quick demo of the project:
 
 I decided to use the following tools and technologies for this project:
 
-- Notification: [Courier](https://courier.com/)
+- Notifications System: [Courier](https://courier.com/)
 - Web Framework: [Next.js](https://nextjs.org/)
 - Backend Framework: [tRPC](https://trpc.io/)
 - Authentication & Database: [Supabase](https://supabase.io/)
 - UI: [Mantine](https://mantine.dev/)
 
-
-I assume that you have a basic understanding of the tools and technologies I mentioned above. If you don't, I recommend you to check out their documentation before you continue.
+If you are not familiar with these technologies, I’d recommend checking out their documentation before continuing.
 
 ## Instructions
 
