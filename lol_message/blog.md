@@ -29,23 +29,20 @@ If you are not familiar with these technologies, I’d recommend checking out th
 
 We will be building the core features of the project in this article. You can find the source code of the full project [here](https://github.com/n4ze3m/lol), and you can find the live demo [here](https://lol-message.vercel.app/).
 
-So let's get started!
+Let's get started!
 
-Below diagram shows the architecture which we will be building in this article. 
-
+The diagram below shows the architecture which we will be building in this article.
 
 ![Architecture Diagram](https://i.imgur.com/WtTIASB.png)
 
-
-When a person submit a message, it will send a request to the tRPC server. The tRPC server will then send a request to the Courier API to send a email notification to the recipient and save the message in the database. The recipient will receive an email notification and can view the message in the dashboard.
+When a person submits a message, it will send a request to the tRPC server. The tRPC server will then send a request to the Courier API to send a email notification to the recipient and save the message in the database. The recipient will receive an email notification and can view the message in the dashboard.
 
 The project divided into 4 parts:
 
 1. Project Setup
 2. Courier Setup
 3. Backend
-4. Frontend 
-
+4. Frontend
 
 ### Part 1: Project Setup
 
