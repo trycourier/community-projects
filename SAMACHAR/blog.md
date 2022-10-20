@@ -1,6 +1,4 @@
 # SAMACHAR (Personalized E-Newspaper)
-![Screenshot](ss1.png)
-
 ## Background
 
 SAMACHAR helps its user to get a personalized newspaper mailed to their email id along with an SMS on their phone number notifying them about the delivery of their E-Newspaper. As the newspaper is mailed, the news links are getting stored with the user for future reference.
