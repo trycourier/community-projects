@@ -134,7 +134,7 @@ def send_email(name,email,interestt):
 ### Part 3: Google Oauth Authentication
 1. Now create two files authorization.py and SessionState.py.
 2. Follow https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c to implement google authentication.
-3. In the authorization.py file copy the code below in which I have made some backend and frontend changes to suite our project.
+3. In the authorization.py file copy the code below in which I have made some backend and frontend changes to suite our project.Here we have made use of os library to store secrets which have been put in a .env file.
   ```python
   import streamlit as st
 import asyncio
@@ -236,13 +236,15 @@ def authorize():
         return 2
 
   ```
+ 4.Make the .env file and put your keys here
+  ```python
 
+CLIENT_ID=[CLIENT_ID]
+CLIENT_SECRET=[CLIENT_SECRET]
+REDIRECT=[REDIRECT]
+```
 
-
-
-
-
-### Part n: Firebase Authentication
+### Part 4: Firebase Authentication
 
 Making Authentication system for our project using Firebase
 
@@ -268,6 +270,7 @@ Making Authentication system for our project using Firebase
    ```
 6.Now go to: Project Overview-> Build -> Authentication -> Get Started and enable Email/Password.
 
+### Part 5: Making the Webapp
 
 
 
