@@ -69,12 +69,68 @@ In this first Chapter, we will need to authorize our API to send the secret mess
 2. For the onboarding process, select the email channel and let Courier and build with Python. Start with the Gmail API since it only takes seconds to setup. All we need to do to authorization is login via Gmail. Now the API is ready to send messages.
 3. Copy the starter code, which is a basic API call using cURL, and paste it in the a new terminal. It has your API key saved already, knows which email address you want to send to, and has a message already built in.
 Once you can see the dancing pigeon, you are ready to use Courier to send more notifications. Before we build out our application, we just need to set up the Twilio provider to enable text messages.
-
 4. Head over to “Channels" in the left menu and search for Twilio. You will need an Account SID, Auth Token, and a Messaging Service SID to authorize Twilio.
 5. Open twilio.com, login and open the Console, and find the first two tokens on that page. Save the Account SID and Auth Token in Courier.
 You lastly just need to locate the Messaging Service SID, which can be created in the Messaging tab on the left menu. Checkout Twilio’s docs on how to create a Messaging Service SID, linked in the description.
 
 6. Once we have all three pieces of information, install the provider and now your Courier account is authorized to send any email or SMS within one API call.
+7. Now in project directory create 2 files- sms.py and email.py, paste the respective codes in each one of them and enter your Authorization Token.
+ ```python
+ from trycourier import Courier
+import os
+from dotenv import load_dotenv
+load_dotenv()
+client = Courier(auth_token=os.getenv("AUTH_TOKEN"))
+def send_sms(number):
+    client.send_message(
+            message={
+                "to": {
+                    "phone_number": f"91{number}"
+                },
+                "content": {
+                    "title": "E-Newspaper(Samachar) mailed",
+                    "body": "Your E-Newspaper(Samachar) for today has been mailed to you!"
+                },
+                "data": {
+                    "news": "Your E-Newspaper(Samachar) for today has been mailed to you!"
+                },
+            }
+        )
+
+ ```
+ 
+ ```python
+ from trycourier import Courier
+import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+client = Courier(auth_token=os.getenv("AUTH_TOKEN"))
+from news import Newsfeed
+def send_email(name,email,interestt):
+                news_feed=Newsfeed(interest=interestt,
+                                   from_date=(datetime.datetime.now()-datetime.timedelta(days=1)).strftime('%Y-%m-%d'),
+                                   to_date=datetime.datetime.now().strftime('%Y-%m-%d'))
+                client.send_message(
+                        message={
+                          "to": {
+                            "email": f"{email}",
+                          },
+                          "content": {
+                            "title": f"Your {interestt} Samachar for today",
+                            "body": f"Hi {name}! \n Check out today's Samachar(News) on {interestt} \nDo not reply back to this email. \n\n {news_feed.get()}\nRegards\nSamachar",
+                          },
+                          "data": {"note": f"\nDo not reply back to this email. \n\n {news_feed.get()}\nRegards,\nSamachar",
+                          },
+                          "routing": {
+                                "method": "single",
+                                "channels": ["email"],
+                            },
+                        }
+                      )
+                return True
+ ```
  
 ### Part n: Firebase Authentication
 
