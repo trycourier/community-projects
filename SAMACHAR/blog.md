@@ -430,25 +430,27 @@ else:
                 st.info("Enter a valid email/password !")
 
 ```
-8. Now create a folder called .streamlit inside the project directory and make a config.toml in it.Add the following code in it for background and text-colours.
+8. Now create a folder called .streamlit inside the project directory and make a config.toml file in it.Add the following code in it for background and text-colours.
 ```python
 [theme]
 backgroundColor="#122143"
 secondaryBackgroundColor="#131314"
 textColor="#f8fafd"
 ```
+Part 6: Deployment on Cloud
+You can deploy the app on any Cloud server of your choice like streamlit.io, heroku,etc.
 
 ## Conclusions
+Voila!! 
+The App is now ready to provide people with their personalised E-Newspaper.
+Implementing Machine Learning algorithms to provide news in sorted order from most to least trending news along with sentiment analysis to categorize news as positive news and negative news can be the future scope of this project.
 
-[Overview of the project. What's next?]
-
-[Call to action: e.g. try building this project and tag me @shreythecray when you do!]
+Call to action: try building this project and tag me @OjasMittal when you do!
 
 ## About the Author
-
-[Introduce yourself, talk about your interests, types of projects you like building, skills, etc.]
+Ojas Mittal is a Tech. Enthusiast who likes to explore new things.He is pursuing Computer Science from Vellore Institute of Technology.He is a ML Engineer,Full-Stack Web Developer and an Ethical Hacker.He is also a social worker and  member of Lions Club International. He likes to make projects which can be beneficial for the society and can have a global impact.
 
 ## Quick Links
 
-🔗 [link all resources you use to build this project]
-🔗 [e.g. documentation, stackoverflow pages, youtube videos, etc.]
+🔗 https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c
+🔗 https://www.youtube.com/watch?v=KLmSfHcOXlc
