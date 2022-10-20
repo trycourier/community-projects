@@ -437,7 +437,7 @@ backgroundColor="#122143"
 secondaryBackgroundColor="#131314"
 textColor="#f8fafd"
 ```
-Part 6: Deployment on Cloud
+### Part 6: Deployment on Cloud
 You can deploy the app on any Cloud server of your choice like streamlit.io, heroku,etc.
 
 ## Conclusions
