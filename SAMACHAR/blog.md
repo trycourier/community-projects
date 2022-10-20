@@ -452,5 +452,6 @@ Ojas Mittal is a Tech. Enthusiast who likes to explore new things.He is pursuing
 
 ## Quick Links
 
-🔗 https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c
-🔗 https://www.youtube.com/watch?v=KLmSfHcOXlc
+🔗  https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c
+
+🔗  https://www.youtube.com/watch?v=KLmSfHcOXlc
