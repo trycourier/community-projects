@@ -1,4 +1,5 @@
 # SAMACHAR (Personalized E-Newspaper)
+![Screenshot](screenshot.png)
 
 ## Background
 
