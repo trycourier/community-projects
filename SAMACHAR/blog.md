@@ -10,6 +10,8 @@ The tech-stack used in this projects are: Pythons's Streamlit Framework,bits of 
 
 ## Instructions
 
+
+
 ### Part 0: Setting Up
 
 1. Open a python compiler like Pycharm and create a new Project.
@@ -18,12 +20,49 @@ The tech-stack used in this projects are: Pythons's Streamlit Framework,bits of 
    ```python
    import streamlit as st
    from pyrebase import initialize_app
+   import sms   #not a library, a file which we will create and import.
+   import emaill  #not a library, a file which we will create and import.
+   import authorization  #not a library, a file which we will create and import.
    from PIL import Image
    from streamlit_lottie import st_lottie
    import requests
    ```
 
-### Part 1: Firebase Authentication
+### Part 1: 
+
+Newspaper Body Generation
+1. Go to https://newsapi.org/ and create an account to get an API-KEY.
+2. Create a new file with name news.py and paste the code given below and enter your API-KEY.
+   ```python
+   import requests
+   class Newsfeed:
+       base_url='https://newsapi.org/v2/everything?'
+       api_key= "[API-KEY]"
+       def __init__(self,interest,from_date,to_date,language='en'):
+           self.interest=interest
+           self.from_date=from_date
+           self.to_date=to_date
+           self.language=language
+       def get(self):
+           url=f'{self.base_url}' \
+           f'qInTitle={self.interest}&' \
+           f'from={self.from_date}&' \
+           f'to={self.to_date}&' \
+           f'language={self.language}&' \
+           f'apiKey={self.api_key}'
+
+           response=requests.get(url)
+           content=response.json()
+           x=content['articles']
+
+           email_body=''
+           for i in x:
+             email_body= email_body + i['title']+"\n"+ i['url']+"\n\n"
+           return email_body
+   ```
+   This class gets the news based upon parameters-interest,from date,to date and language, then creates a url to request news and finally forms the body of the email with news Title and news Urls.
+
+### Part 2: Firebase Authentication
 
 Making Authentication system for our project using Firebase
 
@@ -49,18 +88,8 @@ Making Authentication system for our project using Firebase
    ```
 6.Now go to: Project Overview-> Build -> Authentication -> Get Started and enable Email/Password.
 
-3. [describe step]
 
-### Part 2: [Replace with Subtitle]
 
-[What are you building in this project]
-
-1. [describe step]
-2. [describe step]
-3. [describe step]
-   ```go
-   //code
-   ```
 
 ## Conclusions
 
