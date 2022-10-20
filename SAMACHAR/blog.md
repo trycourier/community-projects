@@ -1,4 +1,4 @@
-# SAMACHAR-Your Personalised E-Newspaper
+# SAMACHAR (E-Newspaper)
 
 ## Background
 
@@ -11,9 +11,10 @@ The tech-stack used in this projects are: Pythons's Streamlit Framework,bits of 
 ## Instructions
 
 ### Part 0: Setting Up
-1.Open a python compiler like Pycharm and create a new Project.
-2.Create a file main.py.
-3.Paste the code given below and install these libraries.
+
+1. Open a python compiler like Pycharm and create a new Project.
+2. Create a file main.py.
+3. Paste the code given below and install these libraries.
    ```python
    import streamlit as st
    from pyrebase import initialize_app
