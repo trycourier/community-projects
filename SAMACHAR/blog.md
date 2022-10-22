@@ -451,6 +451,6 @@ Ojas Mittal is a Tech. Enthusiast who likes to explore new things.He is pursuing
 
 ## Quick Links
 
-🔗  https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c
+🔗  https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c -> Google OAuth Authentication in Streamlit.
 
-🔗  https://www.youtube.com/watch?v=KLmSfHcOXlc
+🔗  https://www.youtube.com/watch?v=KLmSfHcOXlc -> Streamlit Login Page Firebase Authentication.
