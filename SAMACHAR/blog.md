@@ -1,6 +1,6 @@
 # SAMACHAR (Personalized E-Newspaper)
 ## Background
-
+![ss](https://github.com/OjasMittal/community-projects/blob/74e75e76c03c49278372f238dee45b9e362daa16/ss1.png)
 SAMACHAR helps its user to get a personalized newspaper mailed to their email id along with an SMS on their phone number notifying them about the delivery of their E-Newspaper. As the newspaper is mailed, the news links are getting stored with the user for future reference.
 To make newspapers tremendous amount of trees are cut daily. In India itself, more than 240 million copies of newspapers are produced daily. So SAMACHAR(i.e. News in the Hindi language) aims to make this planet greener by switching people from physical newspapers to E-Newspaper so that no more trees have to be cut down to make Newspapers.Moreover in today's fast-running world, people don't get time to hogg from one website to another to check for news related to a particular topic, so SAMACHAR is here to solve this problem!
 
