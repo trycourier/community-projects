@@ -260,7 +260,7 @@ To create the frontend of this project you need to create a ```public``` directo
 
    Our index.html file also contains code to handle our form data. In the ```<script>``` tag we create two functions. 
    
-   Our first function handleData, makes sure that if the user tries to sign up without selecting a news category the form won't submit and the user's screen will display an error asking them to select atlease one category. If the user tries to sign up with all fields filled appropriately, we submit our form by making a POST request to the url "/" (by giving the method attribute and the action attribute in the form tag the value "POST" and "/" respectively), reset our form to clear all the input fields and display a success message on the screen to inform the user the form has been submitted successfully. 
+   Our first function ```handleData()```, makes sure that if the user tries to sign up without selecting a news category the form won't submit and the user's screen will display an error asking them to select atlease one category. If the user tries to sign up with all fields filled appropriately, we submit our form by making a POST request to the url "/" (by giving the method attribute and the action attribute in the form tag the value "POST" and "/" respectively), reset our form to clear all the input fields and display a success message on the screen to inform the user the form has been submitted successfully. 
 
    ```javascript
        function handleData(event){
@@ -280,7 +280,7 @@ To create the frontend of this project you need to create a ```public``` directo
       }
    ```
 
-   Our second function checkError makes sure that if the user selects a category checkbox, the error message (if present, because the user tried to sign up without selecting a category) should disappear. We do this by setting an onclick listener on every checkbox. When a user clicks on a checkbox the checkError function is invoked for that instance of the checkbox. If the checkbox is checked, the function ensures that the error message is not displayed.
+   Our second function ```checkError()``` makes sure that if the user selects a category checkbox, the error message (if present, because the user tried to sign up without selecting a category) should disappear. We do this by setting an onclick listener on every checkbox. When a user clicks on a checkbox the checkError function is invoked for that instance of the checkbox. If the checkbox is checked, the function ensures that the error message is not displayed.
 
    ```javascript
       function checkError(box) {
@@ -295,6 +295,40 @@ To create the frontend of this project you need to create a ```public``` directo
 
    We use the reset.css to prevent the default styling of different broswers to affect the styling of our web page. Make sure to import this stylesheet prior to the index.css stylesheet in the index.html file.
 
+
+8. Now to we add a route to create the unsubscribe functionality using the code below. We essentially retrieve the email the user is using to unsubscribe and delete that email id from our database to ensure that email does not get sent email notifications again. Once the user is unsubscribed, the user is routed to a page that informs the user that they have been unsubscribed successfully.  
+
+```javascript
+app.get('/unsubscribe', async (req, res) => {
+    const email = req.query.email ? req.query.email : "default"
+    try {
+        await db.collection('users').doc(email).delete()
+        res.status(200).send(`Unsubscribed ${email} successfully!`)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+```
+
+9. Now, to ensure that the user receives an email daily we need to set up a cron job to carry out this procedure. 
+
+   We use [onrender](https://render.com/) to host our website and since it does not keep the hosted application active at all times, we used a [third party application](https://cron-job.org/en/) instead of our own server to run the cron job. 
+
+   To create a cronjob, 
+      - Create an account on [cron-job.org](https://cron-job.org/en/) and click on the "CREATE CRONJOB" button on the dashboard.
+      - Fill in the details as displayed in the image below. When filling in the "URL" create your own cron-route-name that you enter in the latter part of the url and set its value in your ```.env``` file as well.
+
+         <img src="https://i.imgur.com/tdovtQw.png" alt="cronjob-setup" width="550" height="400"/>
+      
+      - Now, using the CRON_ROUTE value mentioned in your url and set in your ```.env``` file we add a route to it get all the users in the database and then call the ```fetchNewsAndSendEmail()``` function to send an email to all the users. 
+
+         ```javascript
+         app.get('/' + process.env.CRON_ROUTE, async (req, res) => {
+         const snapshot = await db.collection('users').get()
+         snapshot.forEach(doc => fetchNewsAndSendEmail(doc.get('email'), doc.get('name'), doc.get('checkbox-categories')))
+         res.status(200).send("Emails sent!")
+         })
+         ```
 ## Conclusions
 
 [Overview of the project. What's next?]
