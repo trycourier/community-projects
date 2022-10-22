@@ -4,7 +4,7 @@
 SAMACHAR helps its user to get a personalized newspaper mailed to their email id along with an SMS on their phone number notifying them about the delivery of their E-Newspaper. As the newspaper is mailed, the news links are getting stored with the user for future reference.
 To make newspapers tremendous amount of trees are cut daily. In India itself, more than 240 million copies of newspapers are produced daily. So SAMACHAR(i.e. News in the Hindi language) aims to make this planet greener by switching people from physical newspapers to E-Newspaper so that no more trees have to be cut down to make Newspapers.Moreover in today's fast-running world, people don't get time to hogg from one website to another to check for news related to a particular topic, so SAMACHAR is here to solve this problem!
 
-The tech-stack used in this projects are: Pythons's Streamlit Framework,bits of html/css,Firebase,Google OAuth,Lottie Animations,Courier Platform.
+The tech-stack used in this project are: Pythons's Streamlit Framework,bits of html/css,Firebase,Google OAuth,Lottie Animations,Courier Platform.
 
 
 ## Instructions to make this Project
@@ -21,7 +21,7 @@ The tech-stack used in this projects are: Pythons's Streamlit Framework,bits of 
    from pyrebase import initialize_app
    import sms   #not a library, a file which we will create and import.
    import emaill  #not a library, a file which we will create and import.
-   import authorization  #not a library, a file which we will create and import.
+   import authorization  #not a library, a file that we will create and import.
    from PIL import Image
    from streamlit_lottie import st_lottie
    import requests
@@ -62,10 +62,10 @@ Newspaper Body Generation
    This class gets the news based upon parameters-interest,from date,to date and language, then creates a url to request news and finally forms the body of the email with news Title and news Urls.
 
 ### Part 2: Authorize Courier to send messages using Gmail and Twilio APIs
-In this first Chapter, we will need to authorize our API to send the secret messages. Let’s get started by integrating the Gmail and Twilio APIs, which will enable Courier to send emails and messages from a single API call.
+In this first Part, we will need to authorize our API to send the secret messages. Let’s get started by integrating the Gmail and Twilio APIs, which will enable Courier to send emails and messages from a single API call.
 
 1. Log into your Courier account and create a new secret workspace
-2. For the onboarding process, select the email channel and let Courier and build with Python. Start with the Gmail API since it only takes seconds to setup. All we need to do to authorization is login via Gmail. Now the API is ready to send messages.
+2. For the onboarding process, select the email channel and let Courier build with Python. Start with the Gmail API since it only takes seconds to setup. All we need to do to authorize is login via Gmail. Now the API is ready to send messages.
 3. Copy the starter code, which is a basic API call using cURL, and paste it in the a new terminal. It has your API key saved already, knows which email address you want to send to, and has a message already built in.
 Once you can see the dancing pigeon, you are ready to use Courier to send more notifications. Before we build out our application, we just need to set up the Twilio provider to enable text messages.
 4. Head over to “Channels" in the left menu and search for Twilio. You will need an Account SID, Auth Token, and a Messaging Service SID to authorize Twilio.
@@ -133,7 +133,7 @@ def send_email(name,email,interestt):
 ### Part 3: Google Oauth Authentication
 1. Now create two files authorization.py and SessionState.py.
 2. Follow https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c to implement google authentication.
-3. In the authorization.py file copy the code below in which I have made some backend and frontend changes to suite our project.Here we have made use of os library to store secrets which have been put in a .env file.
+3. In the authorization.py file copy the code below in which I have made some backend and frontend changes to suit our project.Here we have made use of os library to store secrets which have been put in a .env file.
   ```python
   import streamlit as st
 import asyncio
@@ -442,13 +442,13 @@ You can deploy the app on any Cloud server of your choice like streamlit.io, her
 
 ## Conclusions
 Voila!! 
-The App is now ready to provide people with their personalised E-Newspaper.
+The App is now ready to provide people with their personalized E-Newspaper.
 Implementing Machine Learning algorithms to provide news in sorted order from most to least trending news along with sentiment analysis to categorize news as positive news and negative news can be the future scope of this project.
 
 Call to action: try building this project and tag me @OjasMittal when you do!
 
 ## About the Author
-Ojas Mittal is a Tech. Enthusiast who likes to explore new things.He is pursuing Computer Science from Vellore Institute of Technology.He is a ML Engineer,Full-Stack Web Developer and an Ethical Hacker.He is also a social worker and  member of Lions Club International. He likes to make projects which can be beneficial for the society and can have a global impact.
+Ojas Mittal is a Tech. Enthusiast who likes to explore new things.He is pursuing Computer Science from Vellore Institute of Technology.He is an ML Engineer,Full-Stack Web Developer, and an Ethical Hacker.He is also a social worker and  member of Lions Club International. He likes to make projects which can be beneficial for society and can have a global impact.
 
 ## Quick Links
 🔗  https://www.courier.com/ -> Courier Website.
