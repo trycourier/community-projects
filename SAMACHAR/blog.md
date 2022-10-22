@@ -250,6 +250,7 @@ Making Authentication system for our project using Firebase
 1. Go to https://firebase.google.com/ and click on Get Started.
 2. Click on Add Project and create a new project by giving a name to your project.
 3. In Project Overview , go to Project Settings, scroll down and choose Web App(third option).
+[webapp](https://github.com/OjasMittal/community-projects/blob/833566992dd7fd2252f6d99729ee338a05fb1f40/web%20app.png)
 4. Give a name to your app and click on continue.
 5. Copy the below code in your python compiler and replace the fields with the values given to you by firebase and click on continue to console
    ```python
