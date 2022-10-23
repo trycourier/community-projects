@@ -310,7 +310,110 @@ We will now remove the function call for ```fetchNewsAndSendEmail``` and instead
 module.exports = fetchNewsAndSendEmail 
 ```
 
-5. Adding users and user information to Firebase 
+5. Adding users and user information
+
+We will be using Firebase as our cloud database to store user information
+
+To setup Firebase:
+* In [Firebase console](https://console.firebase.google.com/), click ```Add Project```, then follow the on-screen instructions to create a Firebase project.
+* Navigate to the Cloud Firestore section of the Firebase console. You'll be prompted to select an existing Firebase project. Follow the database creation workflow.
+* Select Test Mode and finish the setup.
+
+Getting Firebase service account key:
+* Go to [Google Cloud Console](console.cloud.google) and go to your project you just made.
+* Click on IAM & Admin
+* Click on Service Accounts from the left sidebar
+* Click on the field whose name is firebase-adminsdk
+* Go to keys section
+* Click on ADD KEY -> Create new key
+* Select JSON and click on CREATE
+
+A JSON file will be downloaded. 
+
+Copy this file to our project directory and rename it to `google-credentials.json`
+
+Add `google-credentials.json` to `.gitignore`
+
+Make a new file called ```db.js```
+
+Add this code to it. This is the configuration for our Firestore database.
+
+```js
+const { initializeApp, cert } = require('firebase-admin/app')
+const { getFirestore } = require('firebase-admin/firestore')
+
+initializeApp({ credential: cert(require('./google-credentials.json')) })
+module.exports = getFirestore()
+```
+
+6. Setting up Express
+
+We will be using ExpressJS to manage our server and routes
+
+Create a file called ```index.js``` in the project folder and add the following lines to it
+
+```js
+const express = require('express')
+const { body, validationResult } = require('express-validator')
+require('dotenv').config()
+const db = require('./db')
+const fetchNewsAndSendEmail = require('./apiHandlers')
+const port = process.env.PORT || 3000
+
+const app = express()
+
+app.use(express.static("public")) // this is where our html and css code will reside which we will add later
+app.use(express.urlencoded({ extended: true }))
+```
+
+Next, we need to create a route which will handle incoming form data containing user information
+
+Add this code to index.js
+
+```js
+app.post('/',
+    // data validation
+    body('email').trim().rtrim().notEmpty().withMessage('Email is empty').isEmail().withMessage('Invalid email'),
+    body('name').trim().rtrim().notEmpty().withMessage('Name is empty').isLength({ max: 100 }),
+    body('checkbox-categories').isArray({ min: 1, max: 5 }).withMessage('Categories should be an array with length between 1 and 5 inclusive'),
+    body('checkbox-categories.*').isIn(['sports', 'technology', 'science', 'business', 'health']).withMessage('Invalid categories'),
+
+    // handling the request
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+        try {
+            const data = req.body
+            const doc = db.collection('users').doc(data.email);
+            await doc.set(data)
+            res.send('Record saved successfully')
+
+            // send sample email
+            fetchNewsAndSendEmail(data.email, data.name, data["checkbox-categories"])
+        } catch (error) {
+            res.status(400).send(error.message)
+        }
+
+    })
+
+app.listen(port)
+```
+Run ```node index.js```
+
+To test if our code is working, we will use [Postman](https://www.postman.com/) to make a post request to our server.
+
+<img src="https://i.imgur.com/J4n1lay.png" alt="postman" height="250"/>
+
+Hit Send
+
+You should recieve a response saying ```Record saved successfully```
+
+You can go to your Firebase console and see the newly added data.
+
+
+
+
 
 
 
