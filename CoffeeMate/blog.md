@@ -507,11 +507,13 @@ app.get('/unsubscribe', async (req, res) => {
          ```
 ## Conclusions
 
-[Overview of the project. What's next?]
-
-[Call to action: e.g. try building this project and tag me @shreythecray when you do!]
+The website is now ready and you can send daily news notifications to users following these steps!
 
 ## About the Author
+
+[Tanvi Khosla](https://www.linkedin.com/in/tanvi-khosla/) is a CS grad student at Virginia Tech seeking to pursue Software Engineering as a career. She currently works part time as a Software Developer/Graduate Assistant in the Network Infrastructure and Services team in the Division of IT at Virginia Tech. She enjoys working on frontend development and expanding her skillset by learning new tools and technologies as well as creating new projects. 
+
+Kirtan Desai is 
 
 [Introduce yourself, talk about your interests, types of projects you like building, skills, etc.]
 
