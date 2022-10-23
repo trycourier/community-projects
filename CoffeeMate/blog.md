@@ -239,6 +239,79 @@ Now we are all setup to use the Courier API!
 
 Add a variable called `TEST_EMAIL` in `.env`. We will be using this email to recieve notifications for testing.
 
+Remove the `fetchNews()` function call add this function to `apiHandlers.js`
+
+```js
+const sendNews = async (news_obj, email = process.env.TEST_EMAIL, name = "John") => {
+
+   // options for Courier API
+    const options = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + process.env.COURIER_API_KEY
+        },
+        body: JSON.stringify({
+            "message": {
+                "to": {
+                    email,
+                    "data": { ...news_obj, email, name }
+                },
+                "template": process.env.TEMPLATE_ID
+            }
+        })
+    }
+
+    const res = await fetch('https://api.courier.com/send', options)
+
+    if (!res.ok) throw new Error("Courier API is not working")
+}
+```
+
+In ```fetchNews`` function, add the following line so we can get the news object as a return value
+```js
+return news_obj
+```
+
+Now, we will combine the two functionalities of fetching news and sending email using the function `fetchNewsAndSendEmail`. Add it to `apiHandlers.js`.
+
+```js
+const fetchNewsAndSendEmail = async (email, name, categories) => {
+    categories = [...new Set(categories)] // making sure there are no duplicate categories
+    let news_obj
+    // we will make 5 tries to fetch news and send news incase there is any error from api
+    for (let i = 0; i < 5; i++) {
+        try {
+            news_obj = await fetchNews(categories)
+            sendNews(news_obj, email, name.split(" ")[0])
+            break
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+```
+
+Add a function call to ```fetchNewsAndSendEmail```
+```js
+fetchNewsAndSendEmail(process.env.TEST_EMAIL, "John", ['general', 'health'])
+```
+
+Run ```node apiHandler.js```
+
+You should receive an email on the test email which looks something like this
+
+<img src="https://i.imgur.com/hJ3dEH0.png" alt="drawing" width="400"/>
+
+We will now remove the function call for ```fetchNewsAndSendEmail``` and instead add this line of code to `apiHandlers.js` so we can use our ```fetchNewsAndSendEmail``` function in another file.
+
+```js
+module.exports = fetchNewsAndSendEmail 
+```
+
+5. Adding users and user information to Firebase 
+
 
 
 ### Part 2: Frontend
