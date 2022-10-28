@@ -6,7 +6,7 @@ Motivational quotes were rage back in the day with MMS & email forwards were a t
 
 Inspired by the same idea, today we are going to build a service that sends our friends and family an AI generated motivational quote of the day. Rather than hardcoding a list of motivational quotes, we are going to use a machine learning model to generate a quote on demand. That way we know that we'll never run out of quotes to share!
 
-![what we will build](samples/email.png)
+![what we will build](https://raw.githubusercontent.com/prakhar1989/qotd/main/samples/email.png)
 
 ## Instructions
 
@@ -28,13 +28,23 @@ In this project, we'll use the [HuggingFace](https://huggingface.co/) library to
 
 Luckily, in our case there exists a fine-tuned model that has been trained on the 500k quotes dataset - https://huggingface.co/nandinib1999/quote-generator
 
-With HuggingFace, using this model is as easy as 
+With HuggingFace, using this model is as easy as as creating a tokenizer
 
 ```python
 from transformers import AutoTokenizer, AutoModelWithLMHead, pipeline
 
 tokenizer = AutoTokenizer.from_pretrained("nandinib1999/quote-generator")
+```
+
+then, constructing a model from the pretrained model
+
+```python
 model = AutoModelWithLMHead.from_pretrained("nandinib1999/quote-generator")
+```
+
+and finally, constructing the generator which we can use to generate the quote
+
+```python
 generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # use a starting prompt
@@ -245,5 +255,7 @@ Prakhar is a senior software engineer at Google where he works on building devel
 ## Quick Links
 
 🔗 [huggingface](huggingface.co)
+
 🔗 [fastapi](https://fastapi.tiangolo.com/)
+
 🔗 [unsplash](https://unsplash.com/)
