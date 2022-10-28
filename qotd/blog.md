@@ -250,7 +250,7 @@ If you want to go ahead and improve this project, here are some interesting idea
 
 ## About the Author
 
-Prakhar is a senior software engineer at Google where he works on building developer tools. He's a passionate open-source developer and loves playing the guitar in his free time.
+[Prakhar](https://prakhar.me) is a senior software engineer at Google where he works on building developer tools. He's a passionate open-source developer and loves playing the guitar in his free time.
 
 ## Quick Links
 
