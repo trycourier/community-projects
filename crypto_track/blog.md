@@ -1,5 +1,11 @@
 # Crypto Track: Cryptocurrency tracking web application with instant email notifications
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=a-kGJ8-OU2A">
+    <img  src="https://img.youtube.com/vi/a-kGJ8-OU2A/0.jpg" alt="CryptoTrack">
+  </a>
+</p>
+
 ## Background
 
 [Crypto Track](https://github.com/eyuelberga/CryptoTrack/) is a web application to help track market changes on your favorite cryptocurrency and receive instant email notifications. Cryptocurrency use is rapidly expanding, and many people are putting their money and resources into it. However, its volatility sets it apart from other assets. Even though staying current with market trends might be time-consuming, there are also considerable benefits to doing so. Crypto Track essentially aims to make this a lot easier by notifying subscribers when the desired change is reflected on the market. 
@@ -556,6 +562,8 @@ select
 ## Conclusions
 
 And we are done, I hope you enjoyed this tutorial. You can find the full source code on [Github](https://github.com/eyuelberga/CryptoTrack/) and also check about the demo [here](https://eyuelberga.github.io/CryptoTrack/).
+
+Courier provides an easy way to handle notifications through different channels seamlessly, it is developer-friendly and has a comprehensive documentation. This project was done as part of the [Courier Hacks](http://courier-hacks.devpost.com/) hackathon and due to time limitations, I focused only in including email notifications. I encourage you to integrate more channels to Crypto Track like SMS, Discord and send a Pull Request to the [Github Repo](https://github.com/eyuelberga/CryptoTrack)
 
 ## About the Author
 
