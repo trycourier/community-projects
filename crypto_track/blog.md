@@ -561,9 +561,9 @@ select
 
 ## Conclusions
 
-And we are done, I hope you enjoyed this tutorial. You can find the full source code on [Github](https://github.com/eyuelberga/CryptoTrack/) and also check about the demo [here](https://eyuelberga.github.io/CryptoTrack/).
+And we are done, I hope you enjoyed this tutorial. Courier provides an easy way to handle notifications through different channels seamlessly, it is developer-friendly and has a comprehensive documentation. This project was done as part of the [Courier Hacks](http://courier-hacks.devpost.com/) hackathon and due to time limitations, I focused only in including email notifications. I encourage you to integrate more channels to Crypto Track like SMS, Discord and send a Pull Request to the [Github Repo](https://github.com/eyuelberga/CryptoTrack). You can find the full source code on [Github](https://github.com/eyuelberga/CryptoTrack/) and also check about the demo [here](https://eyuelberga.github.io/CryptoTrack/).
 
-Courier provides an easy way to handle notifications through different channels seamlessly, it is developer-friendly and has a comprehensive documentation. This project was done as part of the [Courier Hacks](http://courier-hacks.devpost.com/) hackathon and due to time limitations, I focused only in including email notifications. I encourage you to integrate more channels to Crypto Track like SMS, Discord and send a Pull Request to the [Github Repo](https://github.com/eyuelberga/CryptoTrack)
+
 
 ## About the Author
 
