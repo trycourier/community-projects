@@ -130,14 +130,14 @@ except UnidentifiedImageError as e:
         message={
 ```
 
--Receiver’s email
+- Receiver’s email
 ```
             "to": {
             "email": metadata["email"],
 
             },
 ```
--Subject and body content
+- Subject and body content
 ```
             "content": {
 
@@ -157,7 +157,7 @@ except UnidentifiedImageError as e:
 
             },
 ```
--Specific channel
+- Specific channel
 ```
             "routing": {
 
