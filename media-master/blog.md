@@ -6,23 +6,30 @@ Currently, to process any image or video, the server’s need to process them wh
 
 Any website that accepts media content (photos, videos, etc) does some or the other form of background processing on said media. If this processing runs in the main thread of the web server, it could lead to horrible response times and also increase susceptibility to a Denial of Service attack. Operations like compression, validation, re-encoding and watermarking are often essential to services of many popular web apps. Even more important is the surety of being notified whenever something goes wrong in crucial operations like these.
 
+I was motivated to create this programme after learning about the flow of video processing on YouTube. So, what exactly does it do? When a user uploads a video, the clip is kept temporarily for processing reasons, and an acknowledgement is delivered to the user on the fly. The user is not obliged to be online during the processing. The video will be processed in stages and layers, and the relevant outcome will be released publicly upon completion of each phase. For example, if a video has been processed and finalised at 144p, it will be immediately accessible for streaming at that resolution without waiting for 240p or 480p render versions.
+
 **<u>Tools used</u>** 
 
-- Azure Functions: Azure Functions is the ideal tool for asynchronous background tasks like ours.
+- Azure Functions: Azure Functions is the ideal tool for asynchronous background tasks like ours. Azure Functions is a serverless solution that allows to write less code and maintain less infrastructure. Azure Functions provide "compute on-demand" in two ways:
+1. Allows to implement system's logic into readily available blocks of code. These code blocks are called "functions". Different functions can run anytime when required to respond to critical events.
+2. On increase in requests, Azure Functions meets the demand with as many resources and function instances as necessary - but only while needed. As requests fall, any extra resources and application instances drop off automatically.
 
-- Courier: Courier provides an amazing suite of notification integrations.
+- Courier: Courier provides an amazing suite of notification integrations. Courier is an API and web studio for development teams to manage all product-triggered communications (email, chat, in-app, SMS, push, etc.) in one place. This is how Courier works:
+1. Application events can be sent to Courier via their API or SDK
+2. Courier receives and processes events that provide information about the notification content and receiver.
+3. Courier creates a notice template and sends it to the appropriate provider (supports over 60 providers across all channels).
 
 ### Roadmap
 
-- Storing the files
+1. Storing the files
 
-- Detect uploads on the storage
+2. Detect uploads on the storage
 
-- Converting Media files
+3. Converting Media files
 
-- Processing the files
+4. Processing the files
 
-- Sending a feedback to the users on successful or failed uploading of files
+5. Sending a feedback to the users on successful or failed uploading of files
 
 ## Instructions
 
@@ -96,8 +103,12 @@ These variables can finally be fed into [Courier's Python SDK](https://pypi.org/
 
 Courier works by taking in an event as input via an API, which is in our case, a successful upload. The event is accompanied with the data required for the feedback and details of the recipient. It then generates a notification and sends it through the channel specified. Here, I have chosen emails to be the channel for receiving notification.
 
-Imported trycourier package from Courier service and then added all the metadata like receiver’s email, subject, body content, and the specific channel.  
+Imported trycourier package from Courier service:
+```
+from trycourier import Courier
+```
 
+Added all the metadata:
 ```
 
 try:
@@ -115,13 +126,17 @@ except UnidentifiedImageError as e:
         courier_client.send_message(
 
         message={
+```
 
+-Receiver’s email
+```
             "to": {
-
             "email": metadata["email"],
 
             },
-
+```
+-Subject and body content
+```
             "content": {
 
             "title": "Media Master Warning! Unidentified Image detected",
@@ -139,7 +154,9 @@ except UnidentifiedImageError as e:
             "error": str(e),
 
             },
-
+```
+-Specific channel
+```
             "routing": {
 
             "method": "single",
@@ -203,8 +220,6 @@ except UnidentifiedVideoError as e:
         )
 
     logging.warning(f"Unidentified video: {e}")        
-
-     
 
 ```
 
