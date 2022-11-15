@@ -13,7 +13,6 @@ I was motivated to create this programme after learning about the flow of video 
 - Azure Functions: Azure Functions is the ideal tool for asynchronous background tasks like ours. Azure Functions is a serverless solution that allows to write less code and maintain less infrastructure. Azure Functions provide "compute on-demand" in two ways:
 
         1. Allows to implement system's logic into readily available blocks of code. These code blocks are called "functions". Different functions can run anytime when required to respond to critical events.
-
         2. On increase in requests, Azure Functions meets the demand with as many resources and function instances as necessary - but only while needed. As requests fall, any extra resources and application instances drop off automatically.
 
 - Courier: Courier provides an amazing suite of notification integrations. Courier is an API and web studio for development teams to manage all product-triggered communications (email, chat, in-app, SMS, push, etc.) in one place. This is how Courier works:
