@@ -1,4 +1,4 @@
-# Building a CoffeeMate Website with Express.js and Courier for Multichannel Notifications
+# Build the CoffeeMate Website with Express.js and Courier for Email Notifications
 
 ## Background
 
