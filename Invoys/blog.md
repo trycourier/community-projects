@@ -21,42 +21,37 @@ Before building the features, let's define our goals.
 - can schedule an overdue reminder by checking all pending invoices due date daily.
 
 ### Part 1: Setup Courier Platform
-Let's head to Courier Dashboard. By default, it's in production environment. Since I want to test things out, I'm going to change to test environment. We can copy our template and design later to production.
-
-[GIF OF SWITCHING ENV]
+Let's head to Courier Dashboard. By default, it's in production environment. Since I want to test things out, I'm going to change to test environment. We can copy our template and design later to production by clicking dropdown on top-right corner.
 
 Now, I will create a [**brand**](https://www.courier.com/docs/getting-started/courier-concepts/#brands) for my email notifications.
 
-[GIF OF CREATING NEW BRAND FROM HOME]
+![go to brand](https://i.imgur.com/1Us0dzC.gif)
 
 I'm just going to add a logo (beware that the logo width is fixed to 140px) on the header and some social links on footer. The UI is pretty straight-forward, so here is the final result. 
 
-[THE BRAND FINAL RESULT]
+<img src="https://i.imgur.com/sFrofll.png" alt="brand template" width="500px" />
 
 Don't forget to publish it.
 
 ### Part 2: Send Invoice to Email
-Currently the send email button is doing nothing.
-
-[GIF OF CLICKING SEND EMAIL BUTTON DOING NOTHING]
+Currently the send email button in the UI is doing nothing.
 
 I'm going to create `src/lib/courier.ts` file to keep all Courier related API call. Also, I will use the [courier node.js client library](https://github.com/trycourier/courier-node) that already abstracted all Courier API endpoint to a function.
 
-Before I code the functionality, let's create the email notification design first in courier designer.
+Before I code the functionality, let's create the email notification design in courier designer and setup a gmail provider.
 
-[GIF OF CREATING NEW EMAIL NOTIFICATION]
+On the designer page, We will see that the created brand already integrated, neat. After that, let's modify the email accordingly with the data needed. Here is the final result.
 
-We can see that the created brand already integrated, neat. After that, let's modify the email accordingly with the data needed. Here is the final result.
+<img src="https://i.imgur.com/qFhHvAP.png" alt="email template final" width="500px" />
 
-[PIC OF FINAL EMAIL TEMPLATE RESULT]
+<img src="https://i.imgur.com/B6vKjpH.png" alt="action button" width="500px" />
 
-Notice the value with `{}` that become green, it means it's a variable that we can inject dynamically. I'll explain that later. Before I can send anything, I need to create a test event by clicking preview. Then, it will show a prompt to name the event and set `data` in json. That data field is what will populate the value of the green `{]` variables. Since it's a test event, I will fill it with any value, but later I will fill it with dynamic data from code. 
+Notice the value with `{}` that become green, it means it's a variable that we can inject dynamically. I'll explain that later. Before I can send anything, I need to create a test event by clicking preview tab. Then, it will show a prompt to name the event and set `data` in json. That data field is what will populate the value of the green `{]` variables. Since it's a test event, I will fill it with any value, but later I will fill it with dynamic data from code. 
 
-[GIF OF CREATING TEST EVENT]
+Now, I will publish the template so I can send it and go to send tab. It will show the code snippet to send the email and the `data` will be populated with previous test event I created. 
 
-Now, I will publish the template so I can send it and go to send tab. It will show the code snippet to send the email, although need modification from my end. 
+<img src="https://i.imgur.com/PMGcVQq.png" alt="code snippet" width="500px" />
 
-[SHOW COURIER SEND TAB PIC]
 
 #### Backend
 I will copy the test `AUTH_TOKEN` to `.env` file and copy the snippet to `src/lib/courier.ts`.
@@ -239,17 +234,14 @@ Now I can attach the handler to the send email button.
 
 It should work.
 
-[SHOW THE WORKING UI]
-
-[CHECK EMAIL]
-
+<img src="https://i.imgur.com/ush8wdI.gif" alt="working ui" width="500px" />
 
 ### Part 3: Send Payment Reminder
 I want to schedule a reminder that will be sent a day before an invoice's due date. To do that I'm going to use Courier Automation API. 
 
 But first, let's setup the email template design in Courier designer. As I already go through the process before, here is the final result.
 
-[THE FINAL TEMPLATE DESIGN]
+<img src="https://i.imgur.com/4l6shqK.png" alt="payment reminder template" width="500px" />
 
 Before adding the function, define the types for the paramater and refactor the types.
 ```tsx
@@ -284,8 +276,8 @@ export const scheduleReminder = async ({
   customerName,
   invoiceNumber,
 }: ScheduleReminder) => {
-
-   // delay until a day before due in production else 20 seconds after sent for development
+  
+  // delay until a day before due in production else 20 seconds after sent for development
   const delayUntilDate = __IS_PROD__
     ? scheduledDate
     : new Date(Date.now() + SECOND_TO_MS * 20);
@@ -294,9 +286,9 @@ export const scheduleReminder = async ({
    
    // define the  automation steps programmatically
    const { runId } = await courierClient.automations.invokeAdHocAutomation({
-      automation: {
-        steps: [
-          // 1. Set delay for the next steps until given date in ISO string
+     automation: {
+       steps: [
+         // 1. Set delay for the next steps until given date in ISO string
           { action: 'delay', until: delayUntilDate.toISOString() },
 
           // 2. Send the email notification. Equivalent to `courierClient.send()`
@@ -337,16 +329,16 @@ sendEmail: protectedProcedure
 
       //after the invoice sent, schedule the reminder
       await scheduleReminder({
-            ...invoiceData,
+        ...invoiceData,
             scheduledDate,
       });
     }
 ```
 Now if we try to send invoice to email, I should get a reminder 20 seconds later since I'm in development environment.
 
-[SHOW THE UPDATED UI]
+<img src="https://i.imgur.com/MfwQ6F0.png" alt="with payment reminder" />
 
-#### Part 4: Cancel a reminder
+### Part 4: Cancel a reminder
 Finally all the feature are ready. However, I got a problem, what if a client had paid before the payment reminder scheduled date? currently, the reminder will still be sent. That's not a great user experience. Thankfully, courier has an automation cancellation feature.
 
 Let's add `cancelAutomationWorkflow` function in `src/lib/courier.ts`.
@@ -417,7 +409,7 @@ I will call `cancelAutomationWorkflow` when an invoice's status is updated to `P
 
 It should work.
 
-[SHOW THE CANCELATION LOG]
+<img src="https://i.imgur.com/jnLk4Tg.gif" alt="cancel log" width="500px" />
 
 ### Part 5: Error Handling
 An important thing to note when doing AJAX request is there are possibilities of failed request/error. I want to handle the error by throwing it to client, so it can be reflected in UI.
@@ -430,7 +422,7 @@ type SuccessResponse = { data: any, error: null }
 // On Error
 type ErrorResponse = { data: any, error: string }
 ``` 
-Now, I can add this `try-catch` block to all function in `src/lib/courier.ts`.
+Now, I can handle errors by adding `try-catch` block to all function in `src/lib/courier.ts`.
 ```ts
 try {
   // ..function code
@@ -458,12 +450,15 @@ Let's see a handling example on `sendEmail` trpc endpoint.
   if (scheduleError) throw new TRPCClientError(scheduleError);
 ```
 
+### Part 6: Go To Production
+Now that all templates ready, I will copy all assets in test environment to production. Here is an example.
+
+<img src="https://i.imgur.com/Mr3bmuH.gif" alt="copy assets to production" width="500px" />
+
+## Conclusion
+Finally, all goals defined at the start of this article, achieved. We gone through a workflow of integrating Courier API to Next.js application. Although it's in Next.js and trpc, the workflow will be pretty much the same with any other technology.
+
 Interested with the project? contribute here [https://github.com/fazzaamiarso/invoys](https://github.com/fazzaamiarso/invoys)
-
-
-
-
-
 
 ## About the Author
 
