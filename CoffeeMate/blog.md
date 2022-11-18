@@ -1,4 +1,4 @@
-# Coffee Mate
+# Building a CoffeeMate Website with Express.js and Courier for Multichannel Notifications
 
 ## Background
 
