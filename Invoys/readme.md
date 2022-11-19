@@ -3,62 +3,68 @@
 ## Background
 On the internet, a lot of open-source Invoice management apps are built with Laravel. As a Javascript developer, I want to build the “React Solution” for devs that are familiar with React and Javascript.
 
-Tech Stack:
-- Next.js + Typescript
-- TRPC
-- Prisma
-- Tailwind CSS
-- Courier API
+A problem I found when building with services in node.js is there is no built-in mailer. So, I have to search for a 3rd party service to do that for me. In this article, I will be integrating [Courier](https://www.courier.com/docs/) to send emails for this project [https://github.com/fazzaamiarso/invoys](https://github.com/fazzaamiarso/invoys).  
 
 ## Pre-requisites
-In this article, you will see my process of integrating Courier API to [this project](https://github.com/fazzaamiarso/invoys). You should be familiar with Typescript and Next.js. As for the other technology, familiar will be good but not mandatory.
+As this article isn't your typical follow-along (more like "please sit tight and see how I do it"), it's not mandatory to be familiar with all technologies used. However, familiarity with Typescript and Next.js will be beneficial for quicker understanding. 
+
+Techs in this blog:
+- Next.js + Typescript
+- [Trpc](https://trpc.io/)
+- [Prisma](https://www.prisma.io/)
+- Courier API
+
+You can find the full [source code here](https://github.com/fazzaamiarso/invoys/tree/bc231301c92bb07692a3388bb50d76d61603a41f) for reference.
 
 ### Goals
 Before building the features, let's define our goals.
-- can send invoice link to client's email.
-- can send a reminder a day before an invoice's due date.
-- can cancel an invoice due date reminder when the invoice is already paid.
-- can schedule an overdue reminder by checking all pending invoices due date daily.
+1. Send invoice link to client's email.
+2. Send a reminder a day before an invoice's due date.
+3. Cancel an invoice due date reminder when the invoice is already paid.
+4. Handling network errors.
 
 ### Part 1: Setup Courier Platform
-Let's head to Courier Dashboard. By default, it's in production environment. Since I want to test things out, I'm going to change to test environment. We can copy our template and design later to production by clicking dropdown on top-right corner.
+Let's head to Courier Dashboard. By default, it's in a production environment. Since I want to test things out, I'm going to change to the test environment by clicking the dropdown in the top-right corner. 
+
+> We can copy all templates later to production or vice-versa.
 
 Now, I will create a [**brand**](https://www.courier.com/docs/getting-started/courier-concepts/#brands) for my email notifications.
 
 ![go to brand](https://i.imgur.com/1Us0dzC.gif)
 
-I'm just going to add a logo (beware that the logo width is fixed to 140px) on the header and some social links on footer. The UI is pretty straight-forward, so here is the final result. 
+I'm just going to add a logo (beware that the logo width is fixed to 140px) on the header and social links on the footer. The designer UI is pretty straightforward, so here is the final result. 
 
 <img src="https://i.imgur.com/sFrofll.png" alt="brand template" width="500px" />
 
-Don't forget to publish it.
+Don't forget to publish the changes.
 
 ### Part 2: Send Invoice to Email
-Currently the send email button in the UI is doing nothing.
+Currently, the send email button on the UI is doing nothing.
 
-I'm going to create `src/lib/courier.ts` file to keep all Courier related API call. Also, I will use the [courier node.js client library](https://github.com/trycourier/courier-node) that already abstracted all Courier API endpoint to a function.
+I'm going to create a `courier.ts` file in `src/lib/` to keep all Courier-related code. Also, I will use [courier node.js client library](https://github.com/trycourier/courier-node) which already abstracted all Courier API endpoints to functions.
 
-Before I code the functionality, let's create the email notification design in courier designer and setup a gmail provider.
+Before I code the functionality, let's create the email notification design in courier designer and set up a Gmail provider.
 
-On the designer page, We will see that the created brand already integrated, neat. After that, let's modify the email accordingly with the data needed. Here is the final result.
+On the email designer page, We will see that the created brand is already integrated. After that, let's design the template accordingly with the needed data. Here is the final result.
 
 <img src="https://i.imgur.com/qFhHvAP.png" alt="email template final" width="500px" />
 
 <img src="https://i.imgur.com/B6vKjpH.png" alt="action button" width="500px" />
 
-Notice the value with `{}` that become green, it means it's a variable that we can inject dynamically. I'll explain that later. Before I can send anything, I need to create a test event by clicking preview tab. Then, it will show a prompt to name the event and set `data` in json. That data field is what will populate the value of the green `{]` variables. Since it's a test event, I will fill it with any value, but later I will fill it with dynamic data from code. 
+Notice the value with `{}` that becomes green, it means it's a variable that can be inserted dynamically. I also set the 'See Invoice' button (or action) with a variable.
 
-Now, I will publish the template so I can send it and go to send tab. It will show the code snippet to send the email and the `data` will be populated with previous test event I created. 
+Before I can use the template, I need to create a *test event* by clicking the preview tab. Then, it will show a prompt to name the event and set `data` in JSON format. That data field is what will populate the value of the green `{}` variables (the data can be set from code also). Since it's a test event, I will fill it with arbitrary values.
+
+Next, I publish the template so I can use it. Then, go to send tab. It will show the necessary code to send the email programmatically and the `data` will be populated with the previous *test event* that I created. 
 
 <img src="https://i.imgur.com/PMGcVQq.png" alt="code snippet" width="500px" />
 
-
 #### Backend
-I will copy the test `AUTH_TOKEN` to `.env` file and copy the snippet to `src/lib/courier.ts`.
+I will copy the test `AUTH_TOKEN` to the `.env` file and copy the snippet to `src/lib/courier.ts`.
 ```ts
 const authToken = process.env.COURIER_AUTH_TOKEN;
 
-// email to receive all sent notification in DEVELOPMENT
+// email to receive all sent notifications in DEVELOPMENT mode
 const testEmail = process.env.COURIER_TEST_EMAIL;
 
 const INVOICE_TEMPLATE_ID = <TEMPLATE_ID>;
@@ -68,7 +74,7 @@ const courierClient = CourierClient({
 });
 ```
 
-Create `sendInvoice` function that will be responsible for sending email with Courier programmatically. To send an email from code, I use `courierClient.send()` function.
+Create a `sendInvoice` function that will be responsible for sending an email. To send an email from the code, I use the `courierClient.send()` function.
 ```ts
 // src/lib/courier.ts
 
@@ -89,7 +95,7 @@ const { requestId } = await courierClient.send({
           email: recipientEmail,
         },
         template: INVOICE_TEMPLATE_ID,
-        // Data for courier template desginer
+        // Data for courier template designer
         data: {
           customerName,
           invoiceNumber,
@@ -117,9 +123,9 @@ interface SendInvoice {
 }
 ```
 
-Now that I can send the email, I will call it in `sendEmail` trpc endpoint that resides in `src/server/trpc/router/invoice.ts`.
+Now that I can send the email, I will call it in the `sendEmail` trpc endpoint that resides in `src/server/trpc/router/invoice.ts`.
 
-> Just remember that trpc endpoint is basically a Next.js API route. In this case, `sendEmail` will be the same as calling `/api/trpc/sendEmail` route with `fetch` under the hood. For more explanation [https://trpc.io/docs/quickstart](https://trpc.io/docs/quickstart).
+> Just remember that trpc endpoint is a Next.js API route. In this case, `sendEmail` will be the same as calling the `/api/trpc/sendEmail` route with `fetch` under the hood. For more explanation [https://trpc.io/docs/quickstart](https://trpc.io/docs/quickstart).
 
 ```ts
 // src/server/trpc/router/invoice.ts
@@ -148,9 +154,9 @@ import { dayjs } from '@lib/dayjs';
       await sendInvoice(invoiceData);
     }),
 ```
-For those who are unfamilliar with trpc, What I did is the same as handling `POST` request. Let's break it down.
+For those who are unfamiliar with trpc, What I did is the same as handling a `POST` request. Let's break it down.
 
-1. Trpc way of defining **request input from client** by validating with zod. Here I define all datas that are needed for the `sendInvoice` function.
+1. Trpc way of defining **request input from client** by validating with Zod. Here I define all data that are needed for the `sendInvoice` function.
 ```ts
 .input(
       z.object({
@@ -170,7 +176,7 @@ For those who are unfamilliar with trpc, What I did is the same as handling `POS
  .mutation(async ({ input }) => {
       const invoiceData = {
         ...input,
-        // format a date to string with defined format. 
+        // format a date to string with a defined format. 
         dueDate: dayjs(input.dueDate).format('D MMMM YYYY'), // ex.'2 January 2023'
       };
 
@@ -180,9 +186,9 @@ For those who are unfamilliar with trpc, What I did is the same as handling `POS
 ```
 
 #### Frontend
-Now, I can start to add the functionality to the send email button. I'm going to use `trpc.useMutation()` function which is a thin abstraction layer on `tanstack-query`.
+Now, I can start to add the functionality to the send email button. I'm going to use the `trpc.useMutation()` function which is a thin wrapper of `tanstack-query's `useMutation`.
 
-Let's add the mutation function. On sucessful response, I want to send a success toast on UI.
+Let's add the mutation function. On successful response, I want to send a success toast on UI.
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
 import toast from 'react-hot-toast';
@@ -197,7 +203,7 @@ const InvoiceDetail: NextPage = () => {
 
 }
 ```
-I can just use the function as handler, but I want to create a new handler for the button.
+I can just use the function as an inline handler, but I want to create a new handler for the button.
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
  
@@ -205,10 +211,10 @@ I can just use the function as handler, but I want to create a new handler for t
  const sendInvoiceEmail = () => {
     const hostUrl = window.location.origin;
 
-   // prevent user from spamming when API call is not done.
+   // prevent a user from spamming when the API call is not done.
     if (sendEmailMutation.isLoading) return;
 
-    // send the input to `sendEmail` trpc endpoint
+    // send input data to `sendEmail` trpc endpoint
     sendEmailMutation.mutate({
       customerName: invoiceDetail.customer.name,
       invoiceNumber: `#${invoiceDetail.invoiceNumber}`,
@@ -227,23 +233,23 @@ Now I can attach the handler to the send email button.
 <Button
    variant="primary"
    onClick={sendInvoiceEmail}
-   isLoading={sendEmailMutation.isLoading}
+   isLoading={sendEmailMutation.isLoading}>
    Send to Email
 </Button>
 ```
 
-It should work.
+Here's the working UI.
 
 <img src="https://i.imgur.com/ush8wdI.gif" alt="working ui" width="500px" />
 
 ### Part 3: Send Payment Reminder
-I want to schedule a reminder that will be sent a day before an invoice's due date. To do that I'm going to use Courier Automation API. 
+I want to schedule a reminder that will be sent a day before an invoice's due date. To do that I'm going to use [Courier Automation API](https://www.courier.com/docs/automations/). 
 
-But first, let's setup the email template design in Courier designer. As I already go through the process before, here is the final result.
+First, let's design the email template in Courier designer. As I already go through the process before, here is the final result.
 
 <img src="https://i.imgur.com/4l6shqK.png" alt="payment reminder template" width="500px" />
 
-Before adding the function, define the types for the paramater and refactor the types.
+Before adding the function, define the types for the parameter and refactor the types.
 ```tsx
 // src/lib/courier
 
@@ -264,8 +270,13 @@ interface ScheduleReminder extends CourierBaseData {
   invoiceId: string;
 }
 ```
-Now, I add `scheduleReminder` function to `src/lib/courier`
+Now, I add the `scheduleReminder` function to `src/lib/courier`
 ```tsx
+//src/pages/invoices/[invoiceId]/index.tsx
+
+// check if the development environment is production
+const __IS_PROD__ = process.env.NODE_ENV === 'production';
+
 const PAYMENT_REMINDER_TEMPLATE_ID = '<TEMPLATE_ID>';
 
 export const scheduleReminder = async ({
@@ -277,7 +288,7 @@ export const scheduleReminder = async ({
   invoiceNumber,
 }: ScheduleReminder) => {
   
-  // delay until a day before due in production else 20 seconds after sent for development
+  // delay until a day before due date in production, else 20 seconds after sent for development
   const delayUntilDate = __IS_PROD__
     ? scheduledDate
     : new Date(Date.now() + SECOND_TO_MS * 20);
@@ -311,37 +322,38 @@ export const scheduleReminder = async ({
    return runId;
 };
 ```
-To send the reminder, I will call `scheduleReminder` after a successful `sendInvoice` attempt. Let's modify `sendEmail` trpc endpoint.
+To send the reminder, I will call `scheduleReminder` after a successful `sendInvoice` attempt. Let's modify the `sendEmail` trpc endpoint.
 ```tsx
 // src/server/trpc/router/invoice.ts
 
 sendEmail: protectedProcedure
     .input(..) // omitted for brevity
     .mutation(async ({ input }) => {
+      // multiplier for converting day to milliseconds.
       const DAY_TO_MS = 1000 * 60 * 60 * 24;
 
-      // get a day before due date
+      // get a day before the due date
       const scheduledDate = new Date(input.dueDate.getTime() - DAY_TO_MS * 1);
 
       const invoiceData = {..}; //omitted for brevity
 
       await sendInvoice(invoiceData);
 
-      //after the invoice sent, schedule the reminder
+      //after the invoice is sent, schedule the reminder
       await scheduleReminder({
         ...invoiceData,
             scheduledDate,
       });
     }
 ```
-Now if we try to send invoice to email, I should get a reminder 20 seconds later since I'm in development environment.
+Now if I try to send an invoice by email, I should get a reminder 20 seconds later since I'm in the development environment.
 
 <img src="https://i.imgur.com/MfwQ6F0.png" alt="with payment reminder" />
 
 ### Part 4: Cancel a reminder
-Finally all the feature are ready. However, I got a problem, what if a client had paid before the payment reminder scheduled date? currently, the reminder will still be sent. That's not a great user experience. Thankfully, courier has an automation cancellation feature.
+Finally, all the features are ready. However, I got a problem, what if a client had paid before the scheduled date for payment reminder? currently, the reminder email will still be sent. That's not a great user experience and potentially a confused client. Thankfully, Courier has an automation cancellation feature.
 
-Let's add `cancelAutomationWorkflow` function in `src/lib/courier.ts`.
+Let's add `cancelAutomationWorkflow` function that can cancel any automation workflow in `src/lib/courier.ts`.
 ```ts
 export const cancelAutomationWorkflow = async ({
   cancelation_token,
@@ -350,7 +362,7 @@ export const cancelAutomationWorkflow = async ({
 }) => {
     const { runId } = await courierClient.automations.invokeAdHocAutomation({
       automation: {
-        // define a cancel action, that send a cancelation_token
+        // define a cancel action, that sends a cancelation_token
         steps: [{ action: 'cancel', cancelation_token }],
       },
     });
@@ -358,9 +370,9 @@ export const cancelAutomationWorkflow = async ({
    return runId;
 };
 ``` 
-What is a cancelation_token? It's a unique token that can be set to an automtation workflow so it cancelable by sending `cancel` action with matching `cancelation_token`. 
+What is a cancelation_token? It's a unique token that can be set to an automation workflow, so it's cancelable by sending a `cancel` action with a matching `cancelation_token`. 
 
-Add cancelation_token to `scheduleReminder`, I use invoice's Id as token.
+Add cancelation_token to `scheduleReminder`, I use the invoice's Id as a token.
 ```ts
 // src/lib/courier.ts
 
@@ -375,9 +387,8 @@ export const scheduleReminder = async (..) => {
         { action: 'delay', until: delayUntilDate.toISOString() },
   
   // ... omitted for brevity
-
 ``` 
-I will call `cancelAutomationWorkflow` when an invoice's status is updated to `PAID` in `updateStatus` trpc endpoint. 
+I will call `cancelAutomationWorkflow` when an invoice's status is updated to `PAID` in the `updateStatus` trpc endpoint. 
 ```ts
 // src/server/trpc/router/invoice.ts
 
@@ -387,17 +398,15 @@ I will call `cancelAutomationWorkflow` when an invoice's status is updated to `P
       const { invoiceId, status } = input;
 
       // update an invoice's status in database
-      const updatedStatus = await ctx.prisma.invoice.update({
-        where: { id: input.invoiceId },
-        data: { status: input.status },
+      const updatedInvoice = await ctx.prisma.invoice.update({
         where: { id: invoiceId },
         data: { status },
       });
 
-      // cancel payment reminder automation workflow
-      if (status === 'PAID') {
+      // cancel payment reminder automation workflow if the status is paid.
+      if (updatedInvoice.status === 'PAID') {
 
-        //call the cancel workflow to cancel the payment remminder for matching cancelation_token.
+        //call the cancel workflow to cancel the payment reminder for matching cancelation_token.
         await cancelAutomationWorkflow({
           cancelation_token: `${invoiceId}-reminder`,
         });
@@ -406,15 +415,14 @@ I will call `cancelAutomationWorkflow` when an invoice's status is updated to `P
       return updatedStatus;
     }),
 ```
-
-It should work.
+Here is the working UI.
 
 <img src="https://i.imgur.com/jnLk4Tg.gif" alt="cancel log" width="500px" />
 
 ### Part 5: Error Handling
-An important thing to note when doing AJAX request is there are possibilities of failed request/error. I want to handle the error by throwing it to client, so it can be reflected in UI.
+An important note when doing network requests is there are possibilities of failed requests/errors. I want to handle the error by throwing it to the client, so it can be reflected in UI.
 
-On error, Courier API throws error with `CourierHttpClientError` type by default. I will also have the return value in `src/lib/courier.ts` consistent to format below.
+On error, Courier API throws an error with `CourierHttpClientError` type by default. I will also have all functions' return value in `src/lib/courier.ts` consistent with the below format.
 ```ts
 // On Success
 type SuccessResponse = { data: any, error: null }
@@ -422,7 +430,7 @@ type SuccessResponse = { data: any, error: null }
 // On Error
 type ErrorResponse = { data: any, error: string }
 ``` 
-Now, I can handle errors by adding `try-catch` block to all function in `src/lib/courier.ts`.
+Now, I can handle errors by adding a `try-catch` block to all functions in `src/lib/courier.ts`.
 ```ts
 try {
   // ..function code
@@ -431,7 +439,7 @@ try {
   return { data: runId, error: null };
 
 } catch (error) {
-  // make sure it's an error fron Courier
+  // make sure it's an error from Courier
   if (error instanceof CourierHttpClientError) {
       return { data: error.data, error: error.message };
     } else {
@@ -439,7 +447,7 @@ try {
     }
 }
 ```
-Let's see a handling example on `sendEmail` trpc endpoint.
+Let's see a handling example on the `sendEmail` trpc endpoint.
 ```ts
 // src/server/trpc/router/invoice.ts
 
@@ -451,23 +459,22 @@ Let's see a handling example on `sendEmail` trpc endpoint.
 ```
 
 ### Part 6: Go To Production
-Now that all templates ready, I will copy all assets in test environment to production. Here is an example.
+Now that all templates are ready, I will copy all assets in the test environment to production. Here is an example.
 
 <img src="https://i.imgur.com/Mr3bmuH.gif" alt="copy assets to production" width="500px" />
 
 ## Conclusion
-Finally, all goals defined at the start of this article, achieved. We gone through a workflow of integrating Courier API to Next.js application. Although it's in Next.js and trpc, the workflow will be pretty much the same with any other technology.
-
-Interested with the project? contribute here [https://github.com/fazzaamiarso/invoys](https://github.com/fazzaamiarso/invoys)
+Finally, all the features are integrated with Courier. We've gone through a workflow of integrating Courier API to a Next.js application. Although it's in Next.js and trpc, the workflow will be pretty much the same with any other technology. I hope now you can integrate Courier into your application by yourself.
 
 ## About the Author
+I'm Fazza Razaq Amiarso, a full-stack web developer from Indonesia. I'm also an Open Source enthusiast. I love to share my knowledge and learning [on my blog](https://fazzaamiarso.me/). I occasionally help other developers on [FrontendMentor](https://www.frontendmentor.io/profile/fazzaamiarso) in my free time.
 
-My name is Fazza Razaq Amiarso. I'm a full stack developer. I'm also an Open Source contributor currently maintaining [invoys](https://github.com/fazzaamiarso/invoys) and [astro-reactive-library](https://github.com/ayoayco/astro-reactive-library). 
-
-I love to share my knowledge and learning [in my blog](https://fazzaamiarso.me/). Also, I occasionally helping other developers in [FrontendMentor](https://www.frontendmentor.io/profile/fazzaamiarso) in my free-time.
+Connect with me on [LinkedIn](https://www.linkedin.com/in/fazzaamiarso/)
 
 ## Quick Links
 
-🔗 [github repo](https://github.com/fazzaamiarso/invoys)
+🔗 [Courier Docs](https://www.courier.com/docs/)
 
-🔗 [project motivation](https://fazzaamiarso.me/projects/invoys)
+🔗 [Contribute to Invoys](https://github.com/fazzaamiarso/invoys)
+
+🔗 [Invoys Motivation](https://fazzaamiarso.me/projects/invoys)
