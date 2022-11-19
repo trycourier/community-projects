@@ -6,7 +6,7 @@
 2. Duplicate the [project_name] template folder.
 3. Create a new branch (and work in this branch) called `tutorial-[your_github_username]` e.g. `tutorial-shreythecray`.
 4. Rename the folder.
-5. Update blog.md with a step-by-step guide on how to build your project.
+5. Update readme.md with a step-by-step guide on how to build your project.
 6. Make a pull request to the original repo with your updates.
 
 ### Must Haves
