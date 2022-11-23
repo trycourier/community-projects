@@ -3,7 +3,7 @@
 ## Background
 The Interest Rate Watcher was built to monitor interest rate changes made by central banks and to notify end users about said changes. With both the COVID pandemic and the war in Ukraine, the global economy has been in a precarious situation which has made interest rates set by central banks more volatile. Interest rates set by central banks are an important policy tool and affect everything from the cost of a mortgage through to student loan financing. This program was created to ease the process of informing users of changes made by central banks. 
 
-The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of its popularity in the web development scene. MySQL was chosen for similar reasons, and because of its seamless integration with PHP. To use the program, it is highly recommended to use a cron job on Linux/Linux-based systems or to use Windows Task Scheduler on Windows systems. 
+The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of its popularity in the web development scene. MySQL was chosen for similar reasons, and because of its seamless integration with PHP. To use the program, it is highly recommended to use a cron job on Linux/UNIX-based systems or to use Windows Task Scheduler on Windows systems. 
 
 ## Instructions
 
@@ -13,7 +13,12 @@ PHP as well as MySQL.
 
 ![Courier API Technical Architecture](https://user-images.githubusercontent.com/36359216/203490709-16b2401d-d42f-4d15-9b92-8bde2dc4d28b.JPG)
 
+As the diagram above shows, Interest Rate Watcher is designed to be as versatile as possible which is why it does not have a GUI. In order to even run the Interest Rate Watcher, you need to have:
+* Courier account with API credentials
+* Server running on environment that can run .php files and MySQL databases
+* and perhaps most importantly...internet access!  
 
+To run the Interest Rate Watcher, you need to run a cron job on send.php in Linux/UNIX-based environments or to use Windows Task Scheduler that runs send.php together with the server software (our recommendation is XAMPP which can be downloaded [here](https://www.apachefriends.org/download.html) as at 23rd November 2022. 
 
 ### Part 2: [Replace with Subtitle]
 
