@@ -25,7 +25,7 @@ Before beginning, it is helpful to explain how the Interest Rate Watcher works i
 
 The Interest Rate Watcher is an important tool at a time when central banks are taking a more aggresive approach in dealing with the economic situation affecting many countries around the world. The Interest Rate Watcher is a vital tool for financial websites as well as individuals who would like to be alerted about interest rate changes by a central bank which might affect their mortgage and student loan obligations. It is possible that this tool will be expanded to include more important economic indicators. Although the Interest Rate Watcher can be an informative tool in regards to arranging your personal finances, it is not intended to be taken as financial advice; you should always consult a certified financial advisor for advice on how interest rates affect your own personal situation. 
 
-Try to build this project and tag me on Twitter at [@BabatundeOnabaj](https://twitter.com/BabatundeOnabaj) when you do!
+Try to build this project and tag me on Twitter at [@BabatundeOnabaj](https://twitter.com/BabatundeOnabaj) or email me at babatunde.onabajo@churchmapped.com when you do!
 
 ## About the Author
 
