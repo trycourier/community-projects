@@ -39,10 +39,13 @@ Try to build this project and tag me on Twitter at [@BabatundeOnabaj](https://tw
 
 ## About the Author
 
-Babatunde Onabajo is a programmer from and based in London, United Kingdom. He works for the search engine ChurchMapped Limited, a search engine and travel website which specialises in churches around the world. Babatunde primarily uses PHP and MySQL but has worked on a number of projects ranging from Java to C++. He was named as a Subject Matter Expert (SME) by NASA. He is a graduate from King's College, London (MSc Brazil in Global Perspective) and Cardiff University (BSc Economics) and briefly studied as an exchange student in International Law at the University of Geneva. Outside of programming, Babatunde is interested in politics, hip-hop and theology.
+Babatunde Onabajo is a programmer from and based in London, United Kingdom. He works for the search engine ChurchMapped Limited, a search engine and travel website which specialises in churches around the world. Babatunde primarily uses PHP and MySQL but has worked on a number of projects ranging from Java to C++. He was named as a Subject Matter Expert (SME) by NASA in 2022. He is a graduate from King's College, London (MSc Brazil in Global Perspective) and Cardiff University (BSc Economics) and briefly studied as an exchange student in International Law at the University of Geneva. Outside of programming, Babatunde is interested in politics, hip-hop and theology.
 
 ## Quick Links
 
-🔗 Courier:
-🔗 YouTube explanation: 
+🔗 Courier: https://www.courier.com/
+🔗 YouTube explanation of Interest Rate Watcher: https://www.youtube.com/watch?v=nwztzPKm3bQ
+🔗 PHP: https://www.php.net/
+🔗 MySQL: https://www.mysql.com/
+
 
