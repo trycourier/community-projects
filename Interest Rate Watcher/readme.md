@@ -25,18 +25,28 @@ The lifecycle of the Interest Rate Watcher begins with send.php. Using the exten
 ### Part 2: How to amend send.php for your project or website
 The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why it does not have a GUI. It is therefore versatile and can be used in a wide range of settings. Follow the instructions below to use the Interest Rate Watcher
 
-1. [Change the email address in the code below to that of your choosing]
+1. Change the email address in the code below to that of your choosing
 ```
 <?php
 
 $emailAddress = "INCLUDE_YOUR_EMAIL_ADDRESS_HERE"; #You should include your email address here. This email address will be used to notify you when the interest rate of the relevant central bank changes.
 ```
 
+2. Ensure that you have the necessary database credentials in order for the program to work.
+
+```
+$servername = "localhost"; #We use the details to log on to the local server. This script can also be used in production. You may need to change this if your authentication details differ.
+
+$username = "root"; #This is the default username in most cases. You may need to change it if your authentication details differ.
+
+$password = ""; #This is the default password in most cases (i.e. nothing). You may need to change it if your authentication details differ.
+
+$conn = mysqli_connect($servername, $username, $password); #We use this line of code to connect to the database. Be sure that your login details are accurate otherwise an error could be thrown!
+```
 
 3.
 
 
-3.
 4. [describe step]
 5. [describe step]
 
