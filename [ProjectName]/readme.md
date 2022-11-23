@@ -3,6 +3,7 @@
 ## Background
 
 [2-3 sentences: What is this project about? Why did you build it? What problem does it solve?]
+The Interest Rate Watcher was built to monitor interest rate changes made by central banks and to notify end users about said changes. With both the COVID pandemic and the war in Ukraine, the global economy has been in a precarious situation which has made interest rates set by central banks more volatile. Interest rates set by central banks are an important policy tool and affect everything from the cost of a mortgage through to student loan financing. This program was created to ease the process of informing users of changes made by central banks. 
 
 The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of its popularity in the web development scene. MySQL was chosen for similar reasons, and because of its seamless integration with PHP. 
 
