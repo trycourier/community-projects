@@ -14,7 +14,7 @@ PHP as well as MySQL.
 ![Courier API Technical Architecture](https://user-images.githubusercontent.com/36359216/203490709-16b2401d-d42f-4d15-9b92-8bde2dc4d28b.JPG)
 
 As the diagram above shows, Interest Rate Watcher is designed to be as versatile as possible which is why it does not have a GUI. In order to even run the Interest Rate Watcher, you need to have:
-* [Courier account with API credentials]9https://www.courier.com/)
+* [Courier account with API credentials](https://www.courier.com/)
 * Server running on environment that can run .php files and MySQL databases
 * and perhaps most importantly...internet access!  
 
