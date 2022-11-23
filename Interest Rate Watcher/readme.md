@@ -20,10 +20,10 @@ As the diagram above shows, Interest Rate Watcher is designed to be as versatile
 
 To run the Interest Rate Watcher, you need to run a cron job on send.php in Linux/UNIX-based environments or to use Windows Task Scheduler that runs send.php together with the server software (our recommendation is XAMPP which can be downloaded [here](https://www.apachefriends.org/download.html) as at 23rd November 2022. Our recommendation is that send.php should be set to run once every week (central banks typically change their interest rate once per month, so this time schedule should be sufficient to ensure that the latest change is recorded).
 
-The lifecycle of the Interest Rate Watcher begins with send.php. Using the extensive scraping capabilities of send.php, it monitors the web to gather data on the interest rates set by central banks throughout the world, ranging from the Federal Reserve in the United States :us: through to the Bank of England in the United Kingdom 🇬🇧. 
+The lifecycle of the Interest Rate Watcher begins with send.php. Using the extensive scraping capabilities of send.php, it monitors the web to gather data on the interest rates set by central banks throughout the world, ranging from the Federal Reserve in the United States :us: through to the Bank of England in the United Kingdom 🇬🇧. The website currently used to monitor changes is http://www.worldgovernmentbonds.com/central-bank-rates/ as the website has a consistent and readable structure that can be gathered . Send.php periodically looks at this website for the interest rate set by a number of central banks around the world. It then compares the value stored in the database identified by interest_rate_watcher.sql. If this is the first time the Interest Rate Watcher has been installed or used on a system, then a database is created called *interest_rate_watcher* together with a number of other tables. If the value of the interest rate is the same, then nothing occurs. However, if the interest rate is determined as being different from that stored in the database, send.php uses the Courier API to notify the intended user (you or someone else or both) that there has been an interest rate change by a particular central bank. 
 
 ### Part 2: How to amend send.php for your project or website
-The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why 
+The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why it does not have a GUI. It is therefore versatile and can be used in a wide range of settings. To 
 
 1. [describe step]
 2. [describe step]
@@ -48,5 +48,5 @@ Babatunde Onabajo is a programmer from and based in London, United Kingdom. He w
 🔗 YouTube explanation of Interest Rate Watcher: https://www.youtube.com/watch?v=nwztzPKm3bQ
 🔗 PHP: https://www.php.net/
 🔗 MySQL: https://www.mysql.com/
-
+🔗 World Government Bonds: http://www.worldgovernmentbonds.com/central-bank-rates/
 
