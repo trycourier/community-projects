@@ -20,7 +20,7 @@ As the diagram above shows, Interest Rate Watcher is designed to be as versatile
 
 To run the Interest Rate Watcher, you need to run a cron job on send.php in Linux/UNIX-based environments or to use Windows Task Scheduler that runs send.php together with the server software (our recommendation is XAMPP which can be downloaded [here](https://www.apachefriends.org/download.html) as at 23rd November 2022. Our recommendation is that send.php should be set to run once every week (central banks typically change their interest rate once per month, so this time schedule should be sufficient to ensure that the latest change is recorded).
 
-The lifecycle of the Interest Rate Watcher begins with send.php. Using the extensive scraping capabilities of send.php, it monitors the web to gather data on the interest rates set by central banks throughout the world, ranging from the Federal Reserve in the United States 🇺🇸 through to the Bank of England in the United Kingdom 🇬🇧. 
+The lifecycle of the Interest Rate Watcher begins with send.php. Using the extensive scraping capabilities of send.php, it monitors the web to gather data on the interest rates set by central banks throughout the world, ranging from the Federal Reserve in the United States :us: through to the Bank of England in the United Kingdom 🇬🇧. 
 
 ### Part 2: How to amend send.php for your project or website
 The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why 
