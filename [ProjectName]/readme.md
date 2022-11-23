@@ -1,4 +1,4 @@
-# [Replace with Project Title]
+# How to use the Interest Rate Watcher?
 
 ## Background
 
