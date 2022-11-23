@@ -8,7 +8,8 @@ The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of 
 ## Instructions
 
 ### Part 1: Technical Architecture in a diagram 
-Before beginning, it is helpful to explain how the Interest Rate Watcher works in diagrammatic form.
+Before beginning, it is helpful to explain how the Interest Rate Watcher works in diagrammatic form. As stated, the Interest Rate Watcher is built using 
+PHP as well as MySQL.
 
 ### Part 2: [Replace with Subtitle]
 
