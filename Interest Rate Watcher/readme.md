@@ -44,12 +44,20 @@ $password = ""; #This is the default password in most cases (i.e. nothing). You 
 $conn = mysqli_connect($servername, $username, $password); #We use this line of code to connect to the database. Be sure that your login details are accurate otherwise an error could be thrown!
 ```
 
-3.
+3. Change the name to the individual you wish to be addressed. If this script is going to be read by multiple people, it might be best to have this dynamically rather than statically set. Similarly, change the phone number to the individual who you wish to read about this. If this script is going to be read by multiple people, it might be best to have this dynamically rather than statically set. Finally, use the Authorisation code which you should have access to in your Courier account:
 
+``` $response = $client->request('POST', 'https://api.courier.com/send', [
+  'body' => '{"message":{"content":{"title":"Interest Rates have risen - Federal Reserve","body":"Dear {INSERT_NAME_HERE}, interest rates by the Federal Reserve have now risen. This will likely increase the cost of borrowing for you."},"to":{"email":"' . $emailAddress . '","user_id":"Interest rates - Sep 2022","phone_number":"INSERT PHONE NUMBER HERE"}}}',
+  'headers' => [
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer [INSERT_YOUR_AUTHORISATION_HERE]',
+    'Content-Type' => 'application/json',
+  ],
+]);
+```
 
-4. [describe step]
-5. [describe step]
-
+4. Ensure that you run **send.php** periodically. In Linux and UNIX-based systems, this can be done with a cron job. In Windows systems, this can be done with Windows Task Scheduler.
+5. And voila, you now have the Interest Rate Watcher. In the event of an interest rate change, you should receive a message similar to that below:
 
 ## Conclusions
 
