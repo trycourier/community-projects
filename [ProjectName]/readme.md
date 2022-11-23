@@ -4,7 +4,7 @@
 
 [2-3 sentences: What is this project about? Why did you build it? What problem does it solve?]
 
-[1-3 sentences: Tool and technologies used in this project any why you chose to use them.]
+The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of its popularity in the web development scene. MySQL was chosen for similar reasons, and because of its seamless integration with PHP. 
 
 ## Instructions
 
