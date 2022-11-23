@@ -23,14 +23,23 @@ To run the Interest Rate Watcher, you need to run a cron job on send.php in Linu
 The lifecycle of the Interest Rate Watcher begins with send.php. Using the extensive scraping capabilities of send.php, it monitors the web to gather data on the interest rates set by central banks throughout the world, ranging from the Federal Reserve in the United States :us: through to the Bank of England in the United Kingdom 🇬🇧. The website currently used to monitor changes is http://www.worldgovernmentbonds.com/central-bank-rates/ as the website has a consistent and readable structure that can be gathered . Send.php periodically looks at this website for the interest rate set by a number of central banks around the world. It then compares the value stored in the database identified by interest_rate_watcher.sql. If this is the first time the Interest Rate Watcher has been installed or used on a system, then a database is created called *interest_rate_watcher* together with a number of other tables. If the value of the interest rate is the same, then nothing occurs. However, if the interest rate is determined as being different from that stored in the database, send.php uses the Courier API to notify the intended user (you or someone else or both) that there has been an interest rate change by a particular central bank. 
 
 ### Part 2: How to amend send.php for your project or website
-The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why it does not have a GUI. It is therefore versatile and can be used in a wide range of settings. To 
+The Interest Rate Watcher was designed with a "plug-and-play" in mind. This is one reason why it does not have a GUI. It is therefore versatile and can be used in a wide range of settings. Follow the instructions below to use the Interest Rate Watcher
 
-1. [describe step]
-2. [describe step]
-3. [describe step]
-   ```go
-   //code
-   ```
+1. [Change the email address in the code below to that of your choosing]
+```
+<?php
+
+$emailAddress = "INCLUDE_YOUR_EMAIL_ADDRESS_HERE"; #You should include your email address here. This email address will be used to notify you when the interest rate of the relevant central bank changes.
+```
+
+
+3.
+
+
+3.
+4. [describe step]
+5. [describe step]
+
 
 ## Conclusions
 
