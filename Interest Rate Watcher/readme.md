@@ -58,6 +58,8 @@ $conn = mysqli_connect($servername, $username, $password); #We use this line of 
 
 4. Ensure that you run **send.php** periodically. In Linux and UNIX-based systems, this can be done with a cron job. In Windows systems, this can be done with Windows Task Scheduler.
 5. And voila, you now have the Interest Rate Watcher. In the event of an interest rate change, you should receive a message similar to that below:
+6. ![Email notification](https://user-images.githubusercontent.com/36359216/203496037-3be2fc0f-38ba-4d0f-b43b-fc4b698244a4.JPG)
+
 
 ## Conclusions
 
