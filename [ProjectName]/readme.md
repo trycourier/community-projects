@@ -43,4 +43,6 @@
 ## Quick Links
 
 🔗 [link all resources you use to build this project]
+
 🔗 [e.g. documentation, stackoverflow pages, youtube videos, etc.]
+
