@@ -9,10 +9,11 @@ A problem I found when building with services in node.js is there is no built-in
 As this article isn't your typical follow-along (more like "please sit tight and see how I do it"), it's not mandatory to be familiar with all technologies used. However, familiarity with Typescript and Next.js will be beneficial for quicker understanding. 
 
 Techs in this blog:
-- Next.js + Typescript
-- [Trpc](https://trpc.io/)
-- [Prisma](https://www.prisma.io/)
-- Courier API
+- [Typescript](https://www.typescriptlang.org/). Type-safety and auto-completion are the best, right? 
+- [Next.js](https://nextjs.org/). A production-ready framework to build a full-stack app, even for beginners.
+- [Prisma](https://www.prisma.io/). A great ORM to work with databases. We use Prisma because of its type-safety and auto-completion, providing great developer experience with typescript added.
+- [Trpc](https://trpc.io/). Enable us to easily build end-to-end type-safety between our Next.js client and server.
+- Courier API. A great service/platform to handle our notifications, such as email, SMS, and much more.
 
 You can find the full [source code here](https://github.com/fazzaamiarso/invoys/tree/bc231301c92bb07692a3388bb50d76d61603a41f) for reference.
 
