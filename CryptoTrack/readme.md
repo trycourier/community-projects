@@ -1,4 +1,4 @@
-# Crypto Track: Cryptocurrency tracking web application with instant email notifications
+# Develop a Cryptocurrency Tracking WebApp with Instant Email Notifications
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=a-kGJ8-OU2A">

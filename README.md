@@ -3,9 +3,9 @@
 ## Start Here ⭐️
 
 1. Fork this repo.
-2. Duplicate the [project_name] template folder.
-3. Create a new branch (and work in this branch) called `tutorial-[your_github_username]` e.g. `tutorial-shreythecray`.
-4. Rename the folder.
+2. Duplicate the [ProjectName] template folder.
+3. Create a new branch (and work in this branch) called `tutorial`.
+4. Rename the folder to your project name.
 5. Update readme.md with a step-by-step guide on how to build your project.
 6. Make a pull request to the original repo with your updates.
 
