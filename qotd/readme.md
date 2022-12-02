@@ -1,4 +1,4 @@
-# Motivational QOTD with Courier and GPT2
+# Develop a Motivational QOTD with Courier and GPT2
 
 ## Background
 
