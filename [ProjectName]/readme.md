@@ -1,23 +1,15 @@
-# [Replace with Project Title]
+# How to use the Interest Rate Watcher?
 
 ## Background
+The Interest Rate Watcher was built to monitor interest rate changes made by central banks and to notify end users about said changes. With both the COVID pandemic and the war in Ukraine, the global economy has been in a precarious situation which has made interest rates set by central banks more volatile. Interest rates set by central banks are an important policy tool and affect everything from the cost of a mortgage through to student loan financing. This program was created to ease the process of informing users of changes made by central banks. 
 
-[2-3 sentences: What is this project about? Why did you build it? What problem does it solve?]
-
-[1-3 sentences: Tool and technologies used in this project any why you chose to use them.]
+The Interest Rate Watcher was built in PHP and MySQL. PHP was chosen because of its popularity in the web development scene. MySQL was chosen for similar reasons, and because of its seamless integration with PHP. To use the program, it is highly recommended to use a cron job on Linux/Linux-based systems or to use Windows Task Scheduler on Windows systems. 
 
 ## Instructions
 
-### Part 1: [Replace with Subtitle]
-
-[What are you building in this project]
-
-1. [describe step]
-2. [describe step]
-   ```javascript
-   //code
-   ```
-3. [describe step]
+### Part 1: Technical Architecture in a diagram 
+Before beginning, it is helpful to explain how the Interest Rate Watcher works in diagrammatic form. As stated, the Interest Rate Watcher is built using 
+PHP as well as MySQL.
 
 ### Part 2: [Replace with Subtitle]
 
@@ -32,13 +24,13 @@
 
 ## Conclusions
 
-[Overview of the project. What's next?]
+The Interest Rate Watcher is an important tool at a time when central banks are taking a more aggresive approach in dealing with the economic situation affecting many countries around the world. The Interest Rate Watcher is a vital tool for financial websites as well as individuals who would like to be alerted about interest rate changes by a central bank which might affect their mortgage and student loan obligations. It is possible that this tool will be expanded to include more important economic indicators. Although the Interest Rate Watcher can be an informative tool in regards to arranging your personal finances, it is not intended to be taken as financial advice; you should always consult a certified financial advisor for advice on how interest rates affect your own personal situation. 
 
-[Call to action: e.g. try building this project and tag me @shreythecray when you do!]
+Try to build this project and tag me on Twitter at [@BabatundeOnabaj](https://twitter.com/BabatundeOnabaj) or email me at babatunde.onabajo@churchmapped.com when you do!
 
 ## About the Author
 
-[Introduce yourself, talk about your interests, types of projects you like building, skills, etc.]
+Babatunde Onabajo is a programmer from and based in London, United Kingdom. He works for the search engine ChurchMapped Limited, a search engine and travel website which specialises in churches around the world. Babatunde primarily uses PHP and MySQL but has worked on a number of projects ranging from Java to C++. He was named as a Subject Matter Expert (SME) by NASA. He is a graduate from King's College, London (MSc Brazil in Global Perspective) and Cardiff University (BSc Economics) and briefly studied as an exchange student in International Law at the University of Geneva. Outside of programming, Babatunde is interested in politics, hip-hop and theology.
 
 ## Quick Links
 
