@@ -1,5 +1,4 @@
-# Lol Message
-
+# Build an Open Source NGL.link alternative with Next.js and the Courier API
 
 ## Background
 
