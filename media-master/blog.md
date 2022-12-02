@@ -1,17 +1,14 @@
-# Media Master
+# Building Media Master with 
 
 ## Background
 
-
-
 https://user-images.githubusercontent.com/58381523/201509705-134362de-4eaa-4b37-82b8-5f3d8ca30cde.mp4
 
+Currently, to process images or videos, servers need to process the media while they are being uploaded. This takes a lot of processing power, memory, and time. Media Master applies processing on the videos and images after they are uploaded to the temporary folder and then transfers the processed files to permanent storage.
 
-Currently, to process any image or video, the server’s need to process them while they are being uploaded. This takes a lot of processing power and memory and eventually slows down the uploading process. I created this project to apply processing on the videos and images after they are uploaded to the temporary folder and then transfer the processed files to permanent storage. The project uses Courier and Azure Functions.
+Any website that accepts media content (photos, videos, etc) does some or the other form of background processing on said media. If this processing runs in the main thread of the web server, it could lead to horrible response times and also increase susceptibility to a Denial of Service attack. Operations like compression, validation, re-encoding and watermarking are often essential to services of many popular web apps. Even more important is the guarantee of being notified whenever something goes wrong in crucial operations like these.
 
-Any website that accepts media content (photos, videos, etc) does some or the other form of background processing on said media. If this processing runs in the main thread of the web server, it could lead to horrible response times and also increase susceptibility to a Denial of Service attack. Operations like compression, validation, re-encoding and watermarking are often essential to services of many popular web apps. Even more important is the surety of being notified whenever something goes wrong in crucial operations like these.
-
-I was motivated to create this programme after learning about the flow of video processing on YouTube. So, what exactly does it do? When a user uploads a video, the clip is kept temporarily for processing reasons, and an acknowledgement is delivered to the user on the fly. The user is not obliged to be online during the processing. The video will be processed in stages and layers, and the relevant outcome will be released publicly upon completion of each phase. For example, if a video has been processed and finalised at 144p, it will be immediately accessible for streaming at that resolution without waiting for 240p or 480p render versions.
+I was motivated to create this program after learning about the flow of video processing on YouTube. So, what exactly does it do? When a user uploads a video, the clip is kept temporarily for processing reasons, and an acknowledgement is delivered to the user on the fly. The user is not obliged to be online during the processing. The video will be processed in stages and layers, and the relevant outcome will be released publicly upon completion of each phase. For example, if a video has been processed and finalised at 144p, it will be immediately accessible for streaming at that resolution without waiting for 240p or 480p render versions.
 
 **<u>Tools used</u>** 
 
@@ -232,9 +229,9 @@ except UnidentifiedVideoError as e:
 
 ## Conclusion
 
-So, our fast, light-weight and easy-to-use media processing service is ready to used and can help a lot of students and professionals in their day-to-day hustle. 
+Our fast, light-weight and easy-to-use media processing service is ready to be used and can help a lot of students and professionals in their day-to-day hustle.
 
-What new features and improvements can you think of in Media Master? Pull requests and forks are always welcome at the Github repo.
+What new features and improvements can you think of for Media Master? Pull requests and forks are always welcome at the Github repo.
 
 ## About the Author
 
