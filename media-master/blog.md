@@ -1,4 +1,4 @@
-# Building Media Master with 
+# Accelerating Media Processing with Media Master, using Courier and Azure Functions
 
 ## Background
 
