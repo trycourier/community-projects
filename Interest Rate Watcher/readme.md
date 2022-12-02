@@ -74,8 +74,12 @@ Babatunde Onabajo is a programmer from and based in London, United Kingdom. He w
 ## Quick Links
 
 🔗 Courier: https://www.courier.com/
+
 🔗 YouTube explanation of Interest Rate Watcher: https://www.youtube.com/watch?v=nwztzPKm3bQ
+
 🔗 PHP: https://www.php.net/
+
 🔗 MySQL: https://www.mysql.com/
+
 🔗 World Government Bonds: http://www.worldgovernmentbonds.com/central-bank-rates/
 
