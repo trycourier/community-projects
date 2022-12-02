@@ -38,7 +38,7 @@
 
 ## About the Author
 
-Babatunde Onabajo is a programmer from and based in London, United Kingdom. He works for the search engine ChurchMapped Limited, a search engine and travel website which specialises in churches around the world. Babatunde primarily uses PHP and MySQL but has worked on a number of projects ranging from Java to C++. He was named as a Subject Matter Expert (SME) by NASA. He is a graduate from King's College, London and Cardiff University. Outside of programming, Babatunde is interested in politics, hip-hop and theology.
+[Introduce yourself, talk about your interests, types of projects you like building, skills, etc.]
 
 ## Quick Links
 
