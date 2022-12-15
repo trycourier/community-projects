@@ -536,10 +536,6 @@ In this part, we are going to make all the templates that we required plus the l
 
         return render(request, 'report_anonymously.html')
 
-    @csrf_exempt
-    def search(request):
-        return render(request, 'dashboard.html')
-
     ```
 
 
@@ -1094,10 +1090,27 @@ In this part we are going to get api keys from the respected site. so for our pr
 from newscatcher api and another courier api key to send emails to users.
 
 Follow the below steps to get newscatcher api
-    i] Hit the url of newscatcher website => https://newscatcherapi.com/
+    i] Hit the url of newscatcher website[https://newscatcherapi.com/]
    ii] Click on 'Get API Key' Option to generate api key.
   iii] They will ask you to login or signup so just do it.
    iv] Here, You will see the api key. Copy it. Its for free!!! 
+
+Let's add it in the project views
+
+Setting up Courier api Dashboard so that we can send and track notifications.
+    Steps to Follow
+    i] Visit Courier API Portal[https://www.courier.com/]
+   ii] Create Your Account and Give access to courier to send emails on your behalf 
+  iii] Give a Name to Your Workspace.
+
+  [Video]
+
+  Create a sample template of email and try to send when user registers on our portal then will receive welcome email.
+  [Video]
+
+
+
+## Part 4: Connecting Celery Redis Messaging Queues to Automate The Notifications
 
 
 
