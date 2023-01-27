@@ -1,19 +1,19 @@
 # How to Send Invoice and Add Payment Reminder in Next.js with Courier API
 
 ## Background
-On the internet, a lot of open-source Invoice management apps are built with Laravel. As a Javascript developer, I want to build the “React Solution” for devs that are familiar with React and Javascript.
+A lot of open-source invoice management apps are built with Laravel. As a Javascript developer, I wanted to build the “React Solution” for devs that are familiar with React and Javascript.
 
-A problem I found when building with services in node.js is there is no built-in mailer. So, I have to search for a 3rd party service to do that for me. In this article, I will be integrating [Courier](https://www.courier.com/docs/) to send emails for this project [https://github.com/fazzaamiarso/invoys](https://github.com/fazzaamiarso/invoys).  
+A problem I found when building with services in Node.js is that there is no built-in mailer. So, I had to find a 3rd party service to do that for me. In this article, I will be integrating [Courier](https://www.courier.com/) to send emails for this project [https://github.com/fazzaamiarso/invoys](https://github.com/fazzaamiarso/invoys).  
 
 ## Pre-requisites
-As this article isn't your typical follow-along (more like "please sit tight and see how I do it"), it's not mandatory to be familiar with all technologies used. However, familiarity with Typescript and Next.js will be beneficial for quicker understanding. 
+As this article isn't your typical follow-along (more like "please sit tight and see how I do it"), it's not mandatory to be familiar with all technologies used. However, familiarity with Typescript and Next.js will be beneficial for quicker understanding.
 
-Techs in this blog:
-- [Typescript](https://www.typescriptlang.org/). Type-safety and auto-completion are the best, right? 
-- [Next.js](https://nextjs.org/). A production-ready framework to build a full-stack app, even for beginners.
-- [Prisma](https://www.prisma.io/). A great ORM to work with databases. We use Prisma because of its type-safety and auto-completion, providing great developer experience with typescript added.
-- [Trpc](https://trpc.io/). Enable us to easily build end-to-end type-safety between our Next.js client and server.
-- Courier API. A great service/platform to handle our notifications, such as email, SMS, and much more.
+Technologies in this blog:
+- [Typescript](https://www.typescriptlang.org/): type-safety and auto-completion are the best, right? 
+- [Next.js](https://nextjs.org/): a production-ready framework to build a full-stack app, even for beginners.
+- [Prisma](https://www.prisma.io/): a great ORM to work with databases. We use Prisma because of its type-safety and auto-completion, providing great developer experience with typescript added.
+- [Trpc](https://trpc.io/): enable us to easily build end-to-end type-safety between our Next.js client and server.
+- Courier API: a great service/platform to handle our notifications, such as email, SMS, and much more.
 
 You can find the full [source code here](https://github.com/fazzaamiarso/invoys/tree/bc231301c92bb07692a3388bb50d76d61603a41f) for reference.
 
@@ -25,7 +25,7 @@ Before building the features, let's define our goals.
 4. Handling network errors.
 
 ### Part 1: Setup Courier Platform
-Let's head to Courier Dashboard. By default, it's in a production environment. Since I want to test things out, I'm going to change to the test environment by clicking the dropdown in the top-right corner. 
+Let's head over to the Courier Dashboard. By default, it's in a production environment. Since I want to test things out, I'm going to change to the test environment by clicking the dropdown in the top-right corner.
 
 > We can copy all templates later to production or vice-versa.
 
@@ -44,9 +44,9 @@ Currently, the send email button on the UI is doing nothing.
 
 I'm going to create a `courier.ts` file in `src/lib/` to keep all Courier-related code. Also, I will use [courier node.js client library](https://github.com/trycourier/courier-node) which already abstracted all Courier API endpoints to functions.
 
-Before I code the functionality, let's create the email notification design in courier designer and set up a Gmail provider.
+Before I build the functionality, let's create the email notification design within Courier's Designer and set up the Gmail provider.
 
-On the email designer page, We will see that the created brand is already integrated. After that, let's design the template accordingly with the needed data. Here is the final result.
+On the email designer page, we will see that the created brand is already integrated. After that, let's design the template accordingly with the needed data. Here is the final result.
 
 <img src="https://i.imgur.com/qFhHvAP.png" alt="email template final" width="500px" />
 
@@ -56,7 +56,7 @@ Notice the value with `{}` that becomes green, it means it's a variable that can
 
 Before I can use the template, I need to create a *test event* by clicking the preview tab. Then, it will show a prompt to name the event and set `data` in JSON format. That data field is what will populate the value of the green `{}` variables (the data can be set from code also). Since it's a test event, I will fill it with arbitrary values.
 
-Next, I publish the template so I can use it. Then, go to send tab. It will show the necessary code to send the email programmatically and the `data` will be populated with the previous *test event* that I created. 
+Next, I will publish the template so I can use it. Then, go to send tab. It will show the necessary code to send the email programmatically and the `data` will be populated with the previous *test event* that I created. 
 
 <img src="https://i.imgur.com/PMGcVQq.png" alt="code snippet" width="500px" />
 
@@ -155,7 +155,7 @@ import { dayjs } from '@lib/dayjs';
       await sendInvoice(invoiceData);
     }),
 ```
-For those who are unfamiliar with trpc, What I did is the same as handling a `POST` request. Let's break it down.
+For those who are unfamiliar with trpc, what I did is the same as handling a `POST` request. Let's break it down.
 
 1. Trpc way of defining **request input from client** by validating with Zod. Here I define all data that are needed for the `sendInvoice` function.
 ```ts
@@ -244,7 +244,7 @@ Here's the working UI.
 <img src="https://i.imgur.com/ush8wdI.gif" alt="working ui" width="500px" />
 
 ### Part 3: Send Payment Reminder
-I want to schedule a reminder that will be sent a day before an invoice's due date. To do that I'm going to use [Courier Automation API](https://www.courier.com/docs/automations/). 
+To schedule a reminder that will be sent a day before an invoice's due date, I'm going to use [Courier's Automation API](https://www.courier.com/docs/automations/). 
 
 First, let's design the email template in Courier designer. As I already go through the process before, here is the final result.
 
@@ -352,7 +352,7 @@ Now if I try to send an invoice by email, I should get a reminder 20 seconds lat
 <img src="https://i.imgur.com/MfwQ6F0.png" alt="with payment reminder" />
 
 ### Part 4: Cancel a reminder
-Finally, all the features are ready. However, I got a problem, what if a client had paid before the scheduled date for payment reminder? currently, the reminder email will still be sent. That's not a great user experience and potentially a confused client. Thankfully, Courier has an automation cancellation feature.
+Finally, all the features are ready. However, I got a problem, what if a client had paid before the scheduled date for payment reminder? Currently, the reminder email will still be sent. That's not a great user experience and potentially a confused client. Thankfully, Courier has an automation cancellation feature.
 
 Let's add `cancelAutomationWorkflow` function that can cancel any automation workflow in `src/lib/courier.ts`.
 ```ts
@@ -466,6 +466,8 @@ Now that all templates are ready, I will copy all assets in the test environment
 
 ## Conclusion
 Finally, all the features are integrated with Courier. We've gone through a workflow of integrating Courier API to a Next.js application. Although it's in Next.js and trpc, the workflow will be pretty much the same with any other technology. I hope now you can integrate Courier into your application by yourself.
+
+Get started now: https://app.courier.com/signup
 
 ## About the Author
 I'm Fazza Razaq Amiarso, a full-stack web developer from Indonesia. I'm also an Open Source enthusiast. I love to share my knowledge and learning [on my blog](https://fazzaamiarso.me/). I occasionally help other developers on [FrontendMentor](https://www.frontendmentor.io/profile/fazzaamiarso) in my free time.
