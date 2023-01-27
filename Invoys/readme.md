@@ -62,6 +62,7 @@ Next, I will publish the template so I can use it. Then, go to send tab. It will
 
 #### Backend
 I will copy the test `AUTH_TOKEN` to the `.env` file and copy the snippet to `src/lib/courier.ts`.
+
 ```ts
 const authToken = process.env.COURIER_AUTH_TOKEN;
 
@@ -76,6 +77,7 @@ const courierClient = CourierClient({
 ```
 
 Create a `sendInvoice` function that will be responsible for sending an email. To send an email from the code, I use the `courierClient.send()` function.
+
 ```ts
 // src/lib/courier.ts
 
@@ -111,6 +113,7 @@ const { requestId } = await courierClient.send({
 ```
 
 Define types for the `sendInvoice` function.
+
 ```ts
 // src/lib/courier.ts
 
@@ -155,9 +158,11 @@ import { dayjs } from '@lib/dayjs';
       await sendInvoice(invoiceData);
     }),
 ```
+
 For those who are unfamiliar with trpc, what I did is the same as handling a `POST` request. Let's break it down.
 
 1. Trpc way of defining **request input from client** by validating with Zod. Here I define all data that are needed for the `sendInvoice` function.
+
 ```ts
 .input(
       z.object({
@@ -171,7 +176,9 @@ For those who are unfamiliar with trpc, what I did is the same as handling a `PO
       })
     )
 ```
+
 2. Define a `POST` request handler (mutation).
+
 ```ts
 // input from before
  .mutation(async ({ input }) => {
@@ -190,6 +197,7 @@ For those who are unfamiliar with trpc, what I did is the same as handling a `PO
 Now, I can start to add the functionality to the send email button. I'm going to use the `trpc.useMutation()` function which is a thin wrapper of `tanstack-query's `useMutation`.
 
 Let's add the mutation function. On successful response, I want to send a success toast on UI.
+
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
 import toast from 'react-hot-toast';
@@ -204,7 +212,9 @@ const InvoiceDetail: NextPage = () => {
 
 }
 ```
+
 I can just use the function as an inline handler, but I want to create a new handler for the button.
+
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
  
@@ -227,7 +237,9 @@ I can just use the function as an inline handler, but I want to create a new han
     });
   };
 ```
+
 Now I can attach the handler to the send email button.
+
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
 
@@ -251,6 +263,7 @@ First, let's design the email template in Courier designer. As I already go thro
 <img src="https://i.imgur.com/4l6shqK.png" alt="payment reminder template" width="500px" />
 
 Before adding the function, define the types for the parameter and refactor the types.
+
 ```tsx
 // src/lib/courier
 
@@ -271,7 +284,9 @@ interface ScheduleReminder extends CourierBaseData {
   invoiceId: string;
 }
 ```
+
 Now, I add the `scheduleReminder` function to `src/lib/courier`
+
 ```tsx
 //src/pages/invoices/[invoiceId]/index.tsx
 
@@ -323,7 +338,9 @@ export const scheduleReminder = async ({
    return runId;
 };
 ```
+
 To send the reminder, I will call `scheduleReminder` after a successful `sendInvoice` attempt. Let's modify the `sendEmail` trpc endpoint.
+
 ```tsx
 // src/server/trpc/router/invoice.ts
 
@@ -347,6 +364,7 @@ sendEmail: protectedProcedure
       });
     }
 ```
+
 Now if I try to send an invoice by email, I should get a reminder 20 seconds later since I'm in the development environment.
 
 <img src="https://i.imgur.com/MfwQ6F0.png" alt="with payment reminder" />
@@ -355,6 +373,7 @@ Now if I try to send an invoice by email, I should get a reminder 20 seconds lat
 Finally, all the features are ready. However, I got a problem, what if a client had paid before the scheduled date for payment reminder? Currently, the reminder email will still be sent. That's not a great user experience and potentially a confused client. Thankfully, Courier has an automation cancellation feature.
 
 Let's add `cancelAutomationWorkflow` function that can cancel any automation workflow in `src/lib/courier.ts`.
+
 ```ts
 export const cancelAutomationWorkflow = async ({
   cancelation_token,
@@ -371,9 +390,11 @@ export const cancelAutomationWorkflow = async ({
    return runId;
 };
 ``` 
+
 What is a cancelation_token? It's a unique token that can be set to an automation workflow, so it's cancelable by sending a `cancel` action with a matching `cancelation_token`. 
 
 Add cancelation_token to `scheduleReminder`, I use the invoice's Id as a token.
+
 ```ts
 // src/lib/courier.ts
 
@@ -389,7 +410,9 @@ export const scheduleReminder = async (..) => {
   
   // ... omitted for brevity
 ``` 
+
 I will call `cancelAutomationWorkflow` when an invoice's status is updated to `PAID` in the `updateStatus` trpc endpoint. 
+
 ```ts
 // src/server/trpc/router/invoice.ts
 
@@ -416,6 +439,7 @@ I will call `cancelAutomationWorkflow` when an invoice's status is updated to `P
       return updatedStatus;
     }),
 ```
+
 Here is the working UI.
 
 <img src="https://i.imgur.com/jnLk4Tg.gif" alt="cancel log" width="500px" />
@@ -424,6 +448,7 @@ Here is the working UI.
 An important note when doing network requests is there are possibilities of failed requests/errors. I want to handle the error by throwing it to the client, so it can be reflected in UI.
 
 On error, Courier API throws an error with `CourierHttpClientError` type by default. I will also have all functions' return value in `src/lib/courier.ts` consistent with the below format.
+
 ```ts
 // On Success
 type SuccessResponse = { data: any, error: null }
@@ -431,7 +456,9 @@ type SuccessResponse = { data: any, error: null }
 // On Error
 type ErrorResponse = { data: any, error: string }
 ``` 
+
 Now, I can handle errors by adding a `try-catch` block to all functions in `src/lib/courier.ts`.
+
 ```ts
 try {
   // ..function code
@@ -448,7 +475,9 @@ try {
     }
 }
 ```
+
 Let's see a handling example on the `sendEmail` trpc endpoint.
+
 ```ts
 // src/server/trpc/router/invoice.ts
 
