@@ -31,7 +31,7 @@
 ## Next Steps
 All PRs will be reviewed and may be edited by the Courier team before being merged.
 
-The Courier team will make sure that your tutorial is easy to follow and will attempt to build out the project first. We will request changes for issues that we cannot fix.
+The Courier team will make sure that your tutorial is easy to follow and may attempt to build out the project first. We will request changes for issues that we cannot fix.
 
 # Projects
 
