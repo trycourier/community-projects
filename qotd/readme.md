@@ -1,10 +1,8 @@
 # Develop a Motivational QOTD with Courier and GPT2
 
-## Background
+Motivational quotes were quite the rage back in the day when MMS & email forwarding were popular. I remember my parents forwarding me at the start of every morning. Fast forward to today, if you are lucky, you are part of some forward group on your messaging app of choice (Whatsapp, Telegram, etc.).
 
-Motivational quotes were rage back in the day with MMS & email forwards were a thing. I remember my parents forwarding me one every morning so that I can start my day with one. Fast forward to today, if you are lucky, you are part of some forward group on your messaging app of choice (Whatsapp, Telegram etc.). 
-
-Inspired by the same idea, today we are going to build a service that sends our friends and family an AI generated motivational quote of the day. Rather than hardcoding a list of motivational quotes, we are going to use a machine learning model to generate a quote on demand. That way we know that we'll never run out of quotes to share!
+Inspired by the same idea, today we are going to build a service that sends our friends and family an AI generated motivational quote-of-the-day. Rather than hardcoding a list of motivational quotes, we are going to use a machine learning model to generate a quote on demand, so that we never run out of quotes to share!
 
 ![what we will build](https://raw.githubusercontent.com/prakhar1989/qotd/main/samples/email.png)
 
@@ -13,11 +11,11 @@ Inspired by the same idea, today we are going to build a service that sends our 
 ### Part 1: Using AI to generate motivational quotes
 
 #### OpenGPT2 and Language Models
-OpenAI GPT-2 model was proposed in Language Models are Unsupervised Multitask Learners by Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei and Ilya Sutskever. It’s a causal transformer pretrained using language modeling on a very large corpus of ~40 GB of text data.
+OpenAI GPT-2 model was proposed in Language Models are Unsupervised Multitask Learners by Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei and Ilya Sutskever. It’s a causal transformer pre-trained using language modeling on a very large corpus of ~40 GB of text data.
 
-To simpify this a bit, at a high level OpenAI GPT2 is a large language model that has been trained on massive amounts of data. This model can be used to predict the next token in a given sequence. 
+To simplify this, at a high level OpenAI GPT2 is a large language model that has been trained on massive amounts of data. This model can be used to predict the next token in a given sequence.
 
-If that sounds too complicated, don't worry, you don't need to know any Machine Learning or AI to follow along with this project. Libraries such as [HuggingFace](https://huggingface.co) make using this models in our app very easy.
+If that sounds too complicated, don't worry, you don't need to know any Machine Learning or AI to follow along with this project. Libraries such as [HuggingFace](https://huggingface.co) make using this model in our app very easy.
 
 #### HuggingFace
 
@@ -259,3 +257,5 @@ If you want to go ahead and improve this project, here are some interesting idea
 🔗 [fastapi](https://fastapi.tiangolo.com/)
 
 🔗 [unsplash](https://unsplash.com/)
+
+
