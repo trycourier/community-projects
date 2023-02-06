@@ -6,8 +6,9 @@
 2. Duplicate the [ProjectName] template folder.
 3. Create a new branch (and work in this branch) called `tutorial`.
 4. Rename the folder to your project name.
-5. Update readme.md with a step-by-step guide on how to build your project.
-6. Make a pull request to the original repo with your updates.
+5. Update your readme.md with a step-by-step guide on how to build your project.
+6. Add your project to the table at bottom of this README.md (linked to your folder).
+7. Make a pull request to the original repo with your updates.
 
 ### Must Haves
 * Breakdown your project build into 3-5 parts.
@@ -31,3 +32,9 @@
 All PRs will be reviewed and may be edited by the Courier team before being merged.
 
 The Courier team will make sure that your tutorial is easy to follow and will attempt to build out the project first. We will request changes for issues that we cannot fix.
+
+# Projects
+
+| Name | Author | Description (1 Sentence) |
+| ----------- | ----------- | ----------- |
+| [Secret Messages](https://www.courier.com/blog/hackathon-courier-api-nodejs/) | [Shreya](https://twitter.com/shreythecray) | Build a Node.js app that sends multi-channel notifications in Morse code. |
