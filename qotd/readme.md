@@ -200,6 +200,8 @@ return blob.public_url
 
 Finally, we have everything we need to start sending our awesome quotes to our friends and family. We can use Courier to create a good looking email template.
 
+[Start by creating an account.](https://app.courier.com/signup)
+
 #### Creating the template on Courier
 
 ![img](https://i.imgur.com/0Ktbw0E.png)
@@ -233,7 +235,7 @@ message={
 requests.post("https://api.courier.com/send", json={"message": message}, headers=headers)
 ```
 
-And that's it!
+The API key can be found in [Settings](https://app.courier.com/settings) and the Template ID can be found in the [template design's](https://app.courier.com/designer) settings. And that's it!
 
 ## Conclusions
 
