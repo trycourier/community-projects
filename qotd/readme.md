@@ -17,16 +17,16 @@ To simplify this, at a high level OpenAI GPT2 is a large language model that has
 
 If that sounds too complicated, don't worry, you don't need to know any Machine Learning or AI to follow along with this project. Libraries such as [HuggingFace](https://huggingface.co) make using this model in our app very easy.
 
-#### HuggingFace
+#### Hugging Face
 
-In this project, we'll use the [HuggingFace](https://huggingface.co/) library to load and serve the ML model that will generate the quotes for us. HuggingFace makes it very easy to use transformer models (of which GPT2 is a type) in our projects without any knowledge of ML or AI. As mentioned earlier, GPT2 is a general purpose language model which means that is has is good at predicting generic text given an input sequence. In our case, we need a model more suited for generating quotes. To do that, we have two options
+We'll use the [Hugging Face](https://huggingface.co/) library to load and serve the ML model that will generate the quotes for us. Hugging Face makes it very easy to use transformer models (of which GPT2 is a type) in our projects without any knowledge of ML or AI. As mentioned earlier, GPT2 is a general purpose language model which means that it is good at predicting generic text given an input sequence. In our case, we need a model more suited for generating quotes. To do that, we have two options:
 
-1) We can fine-tune the GPT2 model by using our own text for which we'll need a good dataset of quotes.
-2) Or we can find an *already* existing model which has been fine-tuned with some quotes.
+1. We can fine-tune the GPT2 model by using our own text for which we'll need a good dataset of quotes.
+2. Or we can find an *already* existing model which has been fine-tuned with some quotes.
 
-Luckily, in our case there exists a fine-tuned model that has been trained on the 500k quotes dataset - https://huggingface.co/nandinib1999/quote-generator
+Luckily, in our case there’s a fine-tuned model that has been trained on the 500k quotes dataset - https://huggingface.co/nandinib1999/quote-generator
 
-With HuggingFace, using this model is as easy as as creating a tokenizer
+With Hugging Face, using this model is as easy as as creating a tokenizer
 
 ```python
 from transformers import AutoTokenizer, AutoModelWithLMHead, pipeline
@@ -59,7 +59,7 @@ Now that we have a way to generate quotes for us, we have to think about how we 
 
 A key plus point of the second option is that once the model is loaded the API can respond to us quickly and can be used in other applications as well. FWIW, the first option is a totally valid approach as well.
 
-We can use [FastAPI](https://fastapi.tiangolo.com/) to build a quick serving API. Here's what that looks like
+We can use [Fast API](https://fastapi.tiangolo.com/) to build a quick serving API. Here's what that looks like
 
 ```python
 
@@ -91,7 +91,7 @@ async def generate(request: QuoteRequest):
     return QuoteResponse(text=resp[0]["generated_text"])
 ```
 
-Lets test it out
+Let's test it out
 
 ```sh
 $ uvicorn api:app
@@ -109,8 +109,7 @@ Now we can start sending requests to the `/generate` endpoint that will generate
 
 ### Part 2: Building the Quote Generator
 
-Now that we have a way to generate quotes on demand, we can stop here and start working on sending this via courier. But who are we kidding, no one reads text anymore! We can make this interesting by using a nice image and placing our quote on it to make it look like a poster.
-
+Now that we have a way to generate quotes on demand, we can stop here and start working on sending this via [Courier](http://courier.com/). But who are we kidding, no one reads text anymore! We can make this interesting by using a nice image and placing our quote on it to make it look like a poster.
 
 #### Generate quote
 
@@ -127,7 +126,7 @@ return resp.json()["text"]
 
 #### Downloading the background image
 
-The first of the challenge is getting a beautiful background image for our quote. For that, we'll use the unplash API that provides a nice endpoint to return a random image matching a query. Opening https://source.unsplash.com/random/800×800/?nature in our browser returns a nice nature image. 
+The first challenge is getting a beautiful background image for our quote. For that, we'll use the Unsplash API that provides a nice endpoint to return a random image matching a query. Opening https://source.unsplash.com/random/800×800/?nature in our browser returns a nice nature image. 
 
 To keep things interesting, we can use different query terms such as stars, etc. Here's the how the code for downloading our background image looks like - 
 
@@ -146,12 +145,12 @@ del response
 
 Ok, now we have our background image and a quote which means we can work on assembling the final image that will be sent to the recipients. At a high level we want to place some text on an image but even this simple task can be challenging. For starters, there are a number of questions for us to answer
 
-1. How will be put the text on the image?
+1. How will the text be placed on the image?
 2. What about wrapping the text?
 3. What color should the text be so that it is visible on the background image?
 4. How do we do this for images with varying widths and heights?
 
-Answer to some of these questions are more complicated than others. To keep it simple, we'll put the text in the center, and do some wrapping so that it looks good. Finally, we'll use a light color text for now. For all image manipulation, we'll use Python Image Library (PIL) to make this easy for us.
+The answers to some of these questions are more complicated than others. To keep it simple, we'll put the text in the center, and do some wrapping so that it looks good. Finally, we'll use a light color text for now. For all image manipulation, we'll use Python Image Library (PIL) to make this easy for us.
 
 ```py
 # use the image we downloaded in the above step
@@ -166,7 +165,7 @@ lines = textwrap.wrap(text, width=40)
 line_count = len(lines)
 y_offset = height/2 - (line_count/2 * title_font.getbbox(lines[0])[3])
 
-# for each line of text, we generate a (x,y) to calculate the poisitioning
+# for each line of text, we generate a (x,y) to calculate the positioning
 for line in lines:
     (_, _, line_w, line_h) = title_font.getbbox(line)
     x = (width - line_w)/2
@@ -201,13 +200,13 @@ return blob.public_url
 
 Finally, we have everything we need to start sending our awesome quotes to our friends and family. We can use Courier to create a good looking email template.
 
-#### Creating the template on courier
+#### Creating the template on Courier
 
 ![img](https://i.imgur.com/0Ktbw0E.png)
 
 #### Sending the message
 
-Sending a message with Courier is as easy it gets. While courier has its own SDKs that can make integration easy, I prefer using their API endpoint to keep things simple. With my `AUTH_TOKEN` and `TEMPLATE_ID` in hand, we can use the following piece of code to send our image
+Sending a message with Courier is as easy as it gets. While Courier has its own SDKs that can make integration easy, I prefer using their API endpoint to keep things simple. With my `AUTH_TOKEN` and `TEMPLATE_ID` in hand, we can use the following piece of code to send our image
 
 ```py
 import requests
@@ -243,7 +242,7 @@ This tutorial demonstrated how easy it is to get started with machine learning &
 If you want to go ahead and improve this project, here are some interesting ideas to try
 
 - Better background image: Use a term from the generated quote to search for an image?
-- Better background colour for the text: Use better colors for the text. One cool idea is to use the complimentary color from the image's main color. You can use k-means clustering to find that out.
+- Better background color for the text: Use better colors for the text. One cool idea is to use the complimentary color from the image's main color. You can use k-means clustering to find that out.
 - Adding more channels : Extends this to messages on messaging clients and sms!
 
 ## About the Author
@@ -252,10 +251,10 @@ If you want to go ahead and improve this project, here are some interesting idea
 
 ## Quick Links
 
-🔗 [huggingface](huggingface.co)
+🔗 [Courier Docs](https://www.courier.com/docs/)
 
-🔗 [fastapi](https://fastapi.tiangolo.com/)
+🔗 [Hugging Face](huggingface.co)
 
-🔗 [unsplash](https://unsplash.com/)
+🔗 [Fast API](https://fastapi.tiangolo.com/)
 
-
+🔗 [Unsplash API](https://unsplash.com/developers)
