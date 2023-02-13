@@ -202,7 +202,7 @@ Finally, we have everything we need to start sending our awesome quotes to our f
 
 [Start by creating an account.](https://app.courier.com/signup)
 
-#### Creating the template on Courier
+#### Creating the template in Courier
 
 ![img](https://i.imgur.com/0Ktbw0E.png)
 
