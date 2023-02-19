@@ -112,23 +112,23 @@ resp = client.send_message(
 
 ## App Screenshots
 
-Home Page
+### Home Page
 
 ![Home Page](./images/home_page.png)
 
-Dashboard
+### Dashboard
 
 ![Dashboard](./images/dashboard.png)
 
-Create a new Event
+### Create a new Event
 
 ![Create Event](./images/create_event.png)
 
-All the Upcoming Events
+### All the Upcoming Events
 
 ![Upcoming Events](./images/upcoming_events.png)
 
-Broadcast a message to the email ids given in the .csv file
+### Broadcast a message to the email ids given in the .csv file
 
 ![Broadcast a message](./images/share.png)
 
