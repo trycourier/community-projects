@@ -76,7 +76,7 @@ We have utilized Courier API for following scenarios:
 
 ![Subscibed to an Event](./images/subscribe.png)
 
-4. To broadcast a message to bunch of users
+4. To broadcast a message to a bunch of users.
 
 ![Share a message](./images/custom_message.png)
 
@@ -112,13 +112,23 @@ resp = client.send_message(
 
 ## App Screenshots
 
+Home Page
+
 ![Home Page](./images/home_page.png)
+
+Dashboard
 
 ![Dashboard](./images/dashboard.png)
 
+Create a new Event
+
 ![Create Event](./images/create_event.png)
 
+All the Upcoming Events
+
 ![Upcoming Events](./images/upcoming_events.png)
+
+Broadcast a message to the email ids given in the .csv file
 
 ![Broadcast a message](./images/share.png)
 
