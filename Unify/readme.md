@@ -6,7 +6,7 @@
 
   
 
-Unify is an online platform that allows users to easily create and attend events. It is open to everyone, regardless of background or experience, and provides a great way to learn from and teach others. We have integrated a courier API in order to make sure that users are quickly notified of any system updates or changes. Through Unify, users can stay up-to-date with the latest happenings and get the most out of their events. All users are notified using Courier API once they sign up for the website, register for an event, notified my event organizer if needed. and we have also added a feature where admins and other registered users can notify mass of email IDs provided in any file format, and with an input of custom dynamic message for all users.
+Unify is an online platform that allows users to easily create and attend virtual events. It is open to everyone, regardless of background or experience, and provides a great way to learn from and teach others. We have integrated a courier API in order to make sure that users are quickly notified of any system updates or changes. Through Unify, users can stay up-to-date with the latest happenings and get the most out of their events. All users are notified using Courier API once they sign up for the website, register for an event, notified my event organizer if needed. and we have also added a feature where admins and other registered users can notify mass of email IDs provided in .csv format, and with an input of custom dynamic message for all users.
 
 To build the application, we first designed the architecture and layout. We then used ReactJS to create the user interface and handle the front-end logic. Python was used to manage the back-end logic and server-side scripting, and FAST API was used to create the endpoints. MongoDB was used as the database to store data. After that, we went through an iterative process of testing and debugging until the application was ready.
 
@@ -38,7 +38,7 @@ List of APIs utilized in this project:
 
 | Name | Method | Description |
 |--|--|--|
-| share/ | POST | Share the message to all the users provided in the file | 
+| share/ | POST | Share the message to all the recipients provided in the file | 
   
 
 ### Part 2: Frontend
@@ -50,7 +50,7 @@ For the frontend we have used [MUI](https://mui.com/) to reuse some of the React
  
 We have used MongoDB for our database. Our database contains two tables - Events and Users.
 
-Following are the screenshots of the two databases.
+Following are the screenshots of the two tables.
 
 **Events Table**
   
@@ -80,9 +80,9 @@ We have utilized Courier API for following scenarios:
 
 ![Share a message](./images/custom_message.png)
 
-**For all the email notifications mentioned above we have created templates corresponding to each uses cases and supporting dynamic data.**
+**For all the email notifications mentioned above we have created templates corresponding to each use cases and supporting dynamic data.**
 
-Following is the sample code in Python which is used to send a 'registration successful' message. Template field contains a template id which we have created via the Courier portal. It also contains a dynamic field 'message' which can accept customizable message.
+Following is the sample code in Python which is used to send a registration successful message. Template field contains a template id which we have created via the Courier portal. It also contains a dynamic field **message** which can accept customizable message.
 
 ``` Python
 # Install Courier SDK: pip install trycourier
@@ -105,10 +105,10 @@ resp = client.send_message(
 
 ## Conclusions
 
- Few features that can enhace the user experience, that we are planning to incorporate in our projects are:
+ Few features that can enhace the user experience, that we are planning to incorporate in our project are:
 
 1. Utiltize courier API to build in-app notifications. [real-time notifications]
-2. Keep track of a user's activities and receive real-time notifications when they create a new event by having a feature that allows you to follow them.
+2. Keep track of users activities and receive real-time notifications when they create a new event by having a feature that allows you to follow them.
 
 ## App Screenshots
 
@@ -116,9 +116,9 @@ resp = client.send_message(
 
 ![Dashboard](./images/dashboard.png)
 
-![Upcoming Events](./images/upcoming_events.png)
-
 ![Create Event](./images/create_event.png)
+
+![Upcoming Events](./images/upcoming_events.png)
 
 ![Broadcast a message](./images/share.png)
 
