@@ -1,10 +1,11 @@
-# [Replace with Project Title]
+# Boost Your Productivity with PowerNap - A Time Tracker Web App Built with Node.js and Vanilla JS, Integrated with Courier API for Effortless Notification Management.
 
 ## Background
 
-[2-3 sentences: What is this project about? Why did you build it? What problem does it solve?]
+PowerNap is a simple and elegant time tracker web application that allows users to set up a timer for their power nap sessions. The application was built to help individuals improve their productivity by incorporating short naps into their work routine.For this project, we utilized Node.js and Express.js for the backend and vanilla JS, HTML and CSS for frontend development respectively. We also integrated Courier API to enable the app to send push notifications to users.
 
-[1-3 sentences: Tool and technologies used in this project any why you chose to use them.]
+I chose to use Node.js for its efficient and lightweight nature, which makes it perfect for building scalable applications.For the frontend, I chose to use vanilla JavaScript because it's lightweight, fast, and compatible with all major browsers along with CSS Finally, I incorporated the Courier API to send notifications to users in real-time, which enhances the user experience and improves productivity.
+
 
 ## Instructions
 
@@ -38,8 +39,7 @@
 
 ## About the Author
 
-[Introduce yourself, talk about your interests, types of projects you like building, skills, etc.]
-
+Arnav Goel is a  from New Delhi, India
 ## Quick Links
 
 🔗 [link all resources you use to build this project]
