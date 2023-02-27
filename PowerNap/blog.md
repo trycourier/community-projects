@@ -2,7 +2,7 @@
 
 ## Background
 
-PowerNap is a simple and elegant time tracker web application that allows users to set up a timer for their power nap sessions. The application was built to help indivclassuals improve their productivity by incorporating short naps into their work routine.For this project, we utilized Node.js and Express.js for the backend and vanilla JS, HTML and CSS for frontend development respectively. We also integrated Courier API to enable the app to send push notifications to users.
+PowerNap is a simple and elegant time tracker web application that allows users to set up a timer for their power nap sessions. The application was built to help individuals improve their productivity by incorporating short naps into their work routine.For this project, we utilized Node.js and Express.js for the backend and vanilla JS, HTML and CSS for frontend development respectively. We also integrated Courier API to enable the app to send push notifications to users.
 
 I chose to use Node.js for its efficient and lightweight nature, which makes it perfect for building scalable applications.For the frontend, I chose to use vanilla JavaScript because it's lightweight, fast, and compatible with all major browsers along with CSS Finally, I incorporated the Courier API to send notifications to users in real-time, which enhances the user experience and improves productivity.
 
@@ -15,7 +15,7 @@ Building the frontend of PowerNap is a simple process that involves defining the
 
 1. **Defining the HTML structure:**
    
-   To build the frontend of PowerNap, we first need to define the HTML structure. We'll create a div to hold the timer, a button to start the timer, anpther div to hold the music player and an audio element to play a sound when the timer is up.
+   To build the frontend of PowerNap, we first need to define the HTML structure. We'll create a div to hold the timer, a button to start the timer, another div to hold the music player and an audio element to play a sound when the timer is up.
    ```html
    <div class="timer-container">
    <div class="clock">25:00</div>
@@ -60,8 +60,6 @@ Building the frontend of PowerNap is a simple process that involves defining the
 
    ```javascript
    function updateClock() {
-   let min = Math.floor(time / 60);
-   let sec = time - min * 60;
    let min = Math.floor(time / 60);
    let sec = time - min * 60;
    min = min < 10 ? `0${min}` : min;
@@ -268,7 +266,7 @@ async function send_message() {
 
 This is the send_message function which uses the Courier API to send a message to the specified email and phone number with the message defined in the .env file. Here's how it works:
 
-1. The function gets the message from the `.env` file using `process.env.MESSAGE`.
+1. The function gets the message from the `.env` file using `process.env.MESSAGE` and sends it via Courier API to the specified email and phone number.
 2. The `courier_options` object is defined, which includes the necessary headers for the API call and the JSON body with the recipient email and phone number, message content, and routing information.
 3. The `fetch` function is called with the API URL and `courier_options`.
 
@@ -288,6 +286,7 @@ fetch('/send-message', {
   .catch(error => {
     console.error('Error:', error);
   });
+   send_message();
 
 ```
 This code sends a POST request to the /send-message endpoint with a JSON body containing a single property data with the value 'message'. We then parse the JSON response and log it to the console.
@@ -304,15 +303,34 @@ This code defines a POST request handler for the /send-message endpoint. It call
 
 Now, when the timer ends, the send_message function will be called and a notification will be sent to the user.
 
+### **Starting the Server**
 
+Finally, we need to start the server by listening on a port. 
 
+```javascript
+node server.js
+```
 
+When the timer ends, the send_message function will be called and a notification will be sent to the user. The notification will look something like this:
+
+![image](https://i.imgur.com/QXDZfMm.png)
+
+and we will get the confirmation message in the terminal:
+
+![image](https://i.imgur.com/95mOdUz.png)
+
+Sweet! We have successfully built a webapp that sends a notification to the user when the timer ends.
+
+![yay](https://i.imgur.com/drPdZY4.gif)
 
 ## Conclusions
 
-[Overview of the project. What's next?]
+In this project, we have built a web application called "PowerNap" using HTML, CSS, JavaScript, Node.js, and Express.js. We have also integrated the Courier API to send notification messages to the user. The application allows the user to set a timer for a short nap, and when the time is up, they will receive a notification message reminding them to wake up.
 
-[Call to action: e.g. try building this project and tag me @shreythecray when you do!]
+In the future, I plan to add more features to this project. I want to add a feature that allows the user to set a timer of their choice.
+
+I encourage you to try building this project on your own and see how it works. Don't forget to tag me at [@arnvgl](https://twitter.com/arnvgl/) when you do! I would love to see your version of this project.
+
 
 ## About the Author
 
@@ -320,7 +338,13 @@ Arnav Goel is a developer from New Delhi, India. Currently a sophomore at MSIT, 
 
 ## Quick Links
 
-🔗 [link all resources you use to build this project]
+🔗 [Courier Docs](https://www.courier.com/docs/reference/send/message/)
 
-🔗 [e.g. documentation, stackoverflow pages, youtube vclasseos, etc.]
+🔗 [Courier Get Started with Node.js](https://www.courier.com/docs/guides/getting-started/nodejs/)
+
+🔗 [Express.js](https://expressjs.com/)
+
+🔗 [Node.js](https://nodejs.org/en/)
+
+
 
