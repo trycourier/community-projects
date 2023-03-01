@@ -1,10 +1,6 @@
-# Develop Unify a WebApp to host and attend virtual events with React.js, Flask, MongoDB and Courier API
-
-  
+# Build a Web-App to Host and Attend Virtual Events with React.js, Flask, MongoDB and Courier API
 
 ## Background
-
-  
 
 Unify is an online platform that allows users to easily create and attend virtual events. It is open to everyone, regardless of background or experience, and provides a great way to learn from and teach others. We have integrated a courier API in order to make sure that users are quickly notified of any system updates or changes. Through Unify, users can stay up-to-date with the latest happenings and get the most out of their events. All users are notified using Courier API once they sign up for the website, register for an event, notified my event organizer if needed. and we have also added a feature where admins and other registered users can notify mass of email IDs provided in .csv format, and with an input of custom dynamic message for all users.
 
