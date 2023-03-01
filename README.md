@@ -38,3 +38,4 @@ The Courier team will make sure that your tutorial is easy to follow and may att
 | Name | Author | Description (1 Sentence) |
 | ----------- | ----------- | ----------- |
 | [Secret Messages](https://www.courier.com/blog/hackathon-courier-api-nodejs/) | [Shreya](https://twitter.com/shreythecray) | Build a Node.js app that sends multi-channel notifications in Morse code. |
+|[Unify](/Unify)| [Nupur Chauhan](https://www.linkedin.com/in/nupurchauhan6/), [Saj Maru](https://www.linkedin.com/in/sajmaru/) | Unify is a web app that lets users host or join virtual sessions for tutoring or socializing, and utilizes the Courier API to notify users of upcoming sessions or broadcast messages.|
