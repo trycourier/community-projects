@@ -12,7 +12,7 @@
 
 [Courier](http://courier.com/) is ideal for this kind of application since it makes it simple to integrate notification systems. We will be using the Courier API to send email notifications for now, but it is quite easy to extend it to use SMS or other communication channels.
 
-We will also be using [Supabase](https://supabase.com/), an open-source alternative to firebase with a built-in database and authentication system. We will use [React](https://reactjs.org/) for building out the front end and [Chakra-UI](https://chakra-ui.com/) for styling our React components. We will also set up a cron job that calls a webhook (that we will be building using [Express](https://expressjs.com/)). We will also use the [CoinGecko(https://www.coingecko.com/)] API to fetch the latest cryptocurrency market data. 
+We will also be using [Supabase](https://supabase.com/), an open-source alternative to firebase with a built-in database and authentication system. We will use [React](https://reactjs.org/) for building out the front end and [Chakra-UI](https://chakra-ui.com/) for styling our React components. We will also set up a cron job that calls a webhook (that we will be building using [Express](https://expressjs.com/)). We will also use the [CoinGecko](https://www.coingecko.com/) API to fetch the latest cryptocurrency market data. 
 
 I know that's a lot! But if you have a working knowledge of Javascript, React, and have worked with APIs in the past, you can easily follow along.
 
@@ -33,9 +33,13 @@ Now that you have a general idea of what we will be building, let's get right to
 
 Go to the "Channels" page after signing into your Courier account. We need to configure an email provider of choice. Let’s go with Gmail. Once that is done, the email provider should appear under "Configured Providers."
 
+> Channels and providers are important features of the Courier API. You can read more about them [in this article](https://help.courier.com/en/articles/4196354-what-are-channels-and-integrations)
+
 ![Courier Configured email](./images/courier-configured-provider.png)
 
 We then need to head over to the ‘Designer’ and create a new brand with the Crypto Track logo and theme colors. All emails that are sent will have this in the header and footer.
+
+> The Notification Designer allows us to create notification templates througn a nice GUI. You can read more about the designer [here](https://www.courier.com/docs/courier-designer/notification-designer/notification-designer-overview/) and also more about brands is avaliable on the [docs](https://www.courier.com/docs/courier-designer/brands/how-to-use-brands-to-customize/)
 
 ![Courier Brand](./images/courier-brand.png)
 
@@ -99,13 +103,14 @@ Next up is the ‘snapshots’ table. This table holds a recent snapshot of the 
 
 #### Securing Data Access using Row-Level Security
 
-We will need to add authorization rules to the notifications table so that users can only access and modify their data. We do this by adding a Row-level security policy to the table. RLS is a feature that allows restricting access to rows in a table, you can read more about it [here](https://supabase.com/docs/learn/auth-deep-dive/auth-row-level-security). 
+We will need to add authorization rules to the notifications table so that users can only access and modify their data. We do this by adding a Row-level security policy to the table. 
+> RLS is a feature that allows restricting access to rows in a table, you can read more about it [here](https://supabase.com/docs/learn/auth-deep-dive/auth-row-level-security). 
 
-Navigate to ‘Authentication’ page and then ‘Policies’. Click on ‘New Policy’ on the notifications table. Then select the ‘Create a policy from scratch option.
+Navigate to ‘Authentication’ page and then ‘Policies’. Create a new policy on the notifications table by selecting the ‘Create a policy from scratch option.
 
 ![Supabase create policy from scratch](./images/supabase-policy-from-scratch.jpg)
 
-We will create a custom policy for `ALL` operations that will only allow reading and modifying notifications with the same email value as the authenticated user's email. We will use this for code for both the USING expression and WITH CHECK expression:
+We will create a custom policy for `ALL` operations that will only allow reading and modifying notifications with the same email value as the authenticated user's email. We will use this for code for both the `USING` and `WITH CHECK` expression:
 
 
 ```pgsql
@@ -116,7 +121,7 @@ auth.email() = email
 ![Supabase create policy](./images/supabase-policy-create-dialog.jpg)
 
 
-### Part 3:The Web Frontend
+### Part 3: The Web Frontend
 
 #### Initializing a new project using Vite
 
@@ -299,7 +304,6 @@ const handleCreate = async (e) => {
 
 We also handle displaying the latest cryptocurrency market data by calling the [CoinGecko API](https://www.coingecko.com/en/api/documentation). 
 
-
 ```jsx
 
 const onShowCryptoData = async (id) => {
@@ -320,7 +324,6 @@ const onShowCryptoData = async (id) => {
 ```
 
 > You can see the complete source-code from the `Home` component on [GitHub](https://github.com/eyuelberga/CryptoTrack/blob/main/web/src/Home.jsx).
-
 
 ### Part 4: Setting Up a Scheduled Webhook
 
@@ -448,7 +451,7 @@ export const shouldNotifyChange = (notification, marketLookup, snapshotLookup) =
 
 ```
 
-Here we check if the latest market change is what the user wants to be notified. By comparing  with the snapshot data, we also ensure that the user won't be notified if the change has already been notified.
+Here we check if the latest market change is what the user wants to be notified. By comparing  with the snapshot data, we also ensure that the user won't get notified if the change has already been notified.
 
 We use the Courier API on the `sendEmail` function to send email notifications:
 
@@ -469,7 +472,7 @@ const sendEmail = async ({ email, metric, targetValue, latestValue, change, coin
                     }
                 }
             },
-            template: "NS6KJEXFZNMYVCHZD8AQ1X7NAVQR",
+            template: "REPLACE-WITH-YOUR-TEMPLATE-ID",
             data: {
                 metric,
                 targetValue,
@@ -567,7 +570,7 @@ And we are done, I hope you enjoyed this tutorial. Courier provides an easy way 
 
 ## About the Author
 
-Eyuel is a passionate and driven individual with strong technical and communication skills. He has worked with various web frameworks and has extensive knowledge of JavaScript. He likes to blog and enjoys writing technical articles about software development.
+Eyuel is a software developer currently living in Boston. He has worked with various web frameworks and has extensive knowledge of JavaScript. He is also passionate about open-source and writes technical articles on software development.
 
 ## Quick Links
 
