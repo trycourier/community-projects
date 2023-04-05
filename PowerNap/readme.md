@@ -1,4 +1,4 @@
-# Boost Your Productivity with PowerNap - A Time Tracker Web App Integrated with Courier API for Effortless Notification Management.
+# Build A Time Tracker Web App Integrated with Courier API for Effortless Notification Management
 
 ## Background
 
